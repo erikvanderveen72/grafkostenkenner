@@ -5,15 +5,15 @@ import Link from 'next/link';
 import { Menu, X, Shield, MapPin, ChevronDown } from 'lucide-react';
 
 const navItems = [
-  { label: 'Home', href: '/' },
   {
     label: 'Provincies',
     items: [
-      { label: 'Groningen', href: '/provincie/groningen', description: 'Gemeentelijke begraafplaatsen' },
+      { label: 'Groningen', href: '/provincie/groningen', description: '13 begraafplaatsen in 9 gemeenten' },
       { label: 'Meer provincies', href: '#', description: 'Binnenkort beschikbaar' },
     ],
   },
   { label: 'Soorten begraafplaatsen', href: '/soorten-begraafplaatsen' },
+  { label: 'Grafrechten uitleg', href: '/grafrechten-uitleg' },
   { label: 'Over ons', href: '/over-ons' },
 ];
 

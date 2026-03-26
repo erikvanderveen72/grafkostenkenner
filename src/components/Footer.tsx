@@ -16,21 +16,18 @@ const columns = [
     links: [
       { label: 'Soorten begraafplaatsen', href: '/soorten-begraafplaatsen' },
       { label: 'Grafrechten uitleg', href: '/grafrechten-uitleg' },
-      { label: 'Onderhoud & verlenging', href: '/onderhoud-verlenging' },
     ],
   },
   {
-    title: 'Tools',
+    title: 'Vergelijk',
     links: [
-      { label: 'Grafkosten vergelijken', href: '/provincie/groningen' },
-      { label: 'Kostenberekening', href: '/provincie/groningen' },
+      { label: 'Grafkosten Groningen', href: '/provincie/groningen' },
     ],
   },
   {
     title: 'Over Grafkostenkenner',
     links: [
       { label: 'Over ons', href: '/over-ons' },
-      { label: 'Contact', href: '/contact' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Disclaimer', href: '/disclaimer' },
     ],

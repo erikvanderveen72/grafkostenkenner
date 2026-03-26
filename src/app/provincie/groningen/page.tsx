@@ -8,36 +8,41 @@ import { MapPin, Info, TrendingDown, Clock, Shield } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Grafkosten Groningen 2026 - Vergelijk Grafrechten per Begraafplaats',
   description:
-    'Vergelijk grafkosten en grafrechten op begraafplaatsen in de provincie Groningen. Bekijk tarieven, looptijden en onderhoudskosten. Onafhankelijk en actueel.',
+    'Vergelijk grafkosten en grafrechten op 13 begraafplaatsen in 9 gemeenten in de provincie Groningen. Van €480 tot €8.002. Onafhankelijk en actueel.',
 };
 
 export const revalidate = 3600;
 
 const faqItems = [
   {
-    question: 'Hoeveel kosten grafrechten in de gemeente Groningen?',
+    question: 'Hoeveel kosten grafrechten in de provincie Groningen?',
     answer:
-      'De kosten voor grafrechten in Groningen variëren per begraafplaats en looptijd. Op gemeentelijke begraafplaatsen betaalt u voor 20 jaar grafrechten gemiddeld rond de €2.500-€5.500, afhankelijk van het type graf.',
-  },
-  {
-    question: 'Wat is het verschil tussen de RK Kerkhof Hereweg en De Walakker?',
-    answer:
-      'Het RK Kerkhof Hereweg is een kerkelijke begraafplaats met relatief lage tarieven maar verplicht onderhoud. De Walakker is een gemeentelijke begraafplaats met hogere grafrechten maar optioneel onderhoud. De totaalkosten voor 20 jaar inclusief onderhoud zijn €2.320 vs €7.738.',
-  },
-  {
-    question: 'Is onderhoud van een graf verplicht in Groningen?',
-    answer:
-      'Dat verschilt per begraafplaats. Bij gemeentelijke begraafplaatsen is een onderhoudscontract meestal niet verplicht, maar bij kerkelijke begraafplaatsen zoals het RK Kerkhof Hereweg is onderhoud wel verplicht (€56/jaar).',
-  },
-  {
-    question: 'Kan ik grafrechten verlengen in Groningen?',
-    answer:
-      'Ja, bij de meeste begraafplaatsen kunt u grafrechten verlengen per periode van 10 of 20 jaar. Op De Walakker kost verlenging €1.958,40 per 20 jaar. Bij het RK Kerkhof zijn langere looptijden direct beschikbaar.',
+      'De kosten voor grafrechten in de provincie Groningen variëren sterk: van €480 voor 10 jaar op De Stille Hof in Hoogezand tot €11.203 voor 30 jaar op Esserveld in Groningen. Het type graf, de looptijd en de begraafplaats bepalen de prijs.',
   },
   {
     question: 'Welke begraafplaats in Groningen is het goedkoopst?',
     answer:
-      'Het RK Kerkhof Hereweg biedt de laagste totaalkosten: €2.320 voor 20 jaar inclusief verplicht onderhoud. De Walakker kost minimaal €5.528 voor dezelfde periode zonder onderhoud.',
+      'De Stille Hof in Hoogezand (gemeente Midden-Groningen) is het voordeligst met een enkeldiep graf vanaf €480 voor 10 jaar. Ook urnengraven zijn hier het goedkoopst: vanaf €158 voor 10 jaar.',
+  },
+  {
+    question: 'Welke begraafplaats in Groningen is het duurst?',
+    answer:
+      'Esserveld in de stad Groningen is veruit het duurst: een dubbeldiep graf kost hier €11.203 voor 30 jaar. Een enkeldiep graf kost €8.002 voor 30 jaar. De Walakker in Tynaarlo is ook relatief duur met €5.528 voor 20 jaar.',
+  },
+  {
+    question: 'Is onderhoud van een graf verplicht in Groningen?',
+    answer:
+      'Dat verschilt per begraafplaats. Bij gemeentelijke begraafplaatsen (Selwerderhof, Esserveld, De Stille Hof) is onderhoud meestal niet verplicht. Bij kerkelijke begraafplaatsen zoals het RK Kerkhof Hereweg is onderhoud wel verplicht (€56/jaar).',
+  },
+  {
+    question: 'Kan ik kiezen voor eeuwig grafrecht in Groningen?',
+    answer:
+      'Ja, op Natuurbegraafplaats Hoogengraven in Noordenveld kunt u eeuwig grafrecht krijgen. De kosten variëren van €4.500 tot €9.200 afhankelijk van de locatie op de begraafplaats. Het graf wordt nooit geruimd.',
+  },
+  {
+    question: 'Kan ik grafrechten verlengen in Groningen?',
+    answer:
+      'Ja, bij de meeste begraafplaatsen kunt u grafrechten verlengen. De voorwaarden en kosten verschillen per begraafplaats. Op De Stille Hof kunt u per 10 jaar verlengen, bij De Walakker per 20 jaar.',
   },
 ];
 
@@ -74,8 +79,8 @@ export default function GroningenPage() {
                 <TrendingDown size={24} className="text-accent" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-text-main">{formatCurrency(1200)}</p>
-                <p className="text-sm text-text-muted">vanaf (20 jaar)</p>
+                <p className="text-2xl font-bold text-text-main">{formatCurrency(480)}</p>
+                <p className="text-sm text-text-muted">vanaf (10 jaar)</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -83,7 +88,7 @@ export default function GroningenPage() {
                 <Clock size={24} className="text-warning" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-text-main">20-60 jaar</p>
+                <p className="text-2xl font-bold text-text-main">10-99 jaar</p>
                 <p className="text-sm text-text-muted">looptijden</p>
               </div>
             </div>
@@ -151,47 +156,51 @@ export default function GroningenPage() {
           {/* Vergelijkingstabel samenvatting */}
           <div className="mt-12 bg-white rounded-2xl overflow-hidden border border-border">
             <div className="bg-primary text-white p-6">
-              <h3 className="text-lg font-semibold">Overzicht: Grafkosten Groningen 2026</h3>
-              <p className="text-slate-200 text-sm mt-1">Totaalkosten inclusief onderhoud (indien van toepassing)</p>
+              <h3 className="text-lg font-semibold">Overzicht: Enkeldiep graf — 13 begraafplaatsen in 9 gemeenten</h3>
+              <p className="text-slate-200 text-sm mt-1">Grafrechten (exclusief onderhoud) per begraafplaats, gesorteerd op prijs</p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-text-main">Begraafplaats</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-text-main">20 jaar</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-text-main">40 jaar</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-text-main">60 jaar</th>
+                    <th className="px-6 py-3 text-left font-semibold text-text-main">Begraafplaats</th>
+                    <th className="px-6 py-3 text-left font-semibold text-text-main">Gemeente</th>
+                    <th className="px-6 py-3 text-left font-semibold text-text-main">Type</th>
+                    <th className="px-6 py-3 text-right font-semibold text-text-main">Tarief</th>
+                    <th className="px-6 py-3 text-right font-semibold text-text-main">Looptijd</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-border hover:bg-surface transition">
-                    <td className="px-6 py-3">
-                      <div className="font-medium text-text-main">R.K. Kerkhof Hereweg</div>
-                      <div className="text-xs text-text-muted">Kerkelijk • onderhoud verplicht</div>
-                    </td>
-                    <td className="px-6 py-3 font-bold text-accent">{formatCurrency(2320)}</td>
-                    <td className="px-6 py-3 font-bold text-accent">{formatCurrency(4440)}</td>
-                    <td className="px-6 py-3 font-bold text-accent">{formatCurrency(6360)}</td>
-                  </tr>
-                  <tr className="border-b border-border hover:bg-surface transition">
-                    <td className="px-6 py-3">
-                      <div className="font-medium text-text-main">De Walakker (zonder onderhoud)</div>
-                      <div className="text-xs text-text-muted">Gemeentelijk • onderhoud optioneel</div>
-                    </td>
-                    <td className="px-6 py-3 font-medium text-text-main">{formatCurrency(5528.45)}</td>
-                    <td className="px-6 py-3 font-medium text-text-main">{formatCurrency(7486.85)}</td>
-                    <td className="px-6 py-3 font-medium text-text-main">{formatCurrency(9445.25)}</td>
-                  </tr>
-                  <tr className="hover:bg-surface transition">
-                    <td className="px-6 py-3">
-                      <div className="font-medium text-text-main">De Walakker (met onderhoud)</div>
-                      <div className="text-xs text-text-muted">Gemeentelijk • onderhoud meegerekend</div>
-                    </td>
-                    <td className="px-6 py-3 font-medium text-text-main">{formatCurrency(7738.45)}</td>
-                    <td className="px-6 py-3 font-medium text-text-main">{formatCurrency(11906.85)}</td>
-                    <td className="px-6 py-3 font-medium text-text-main">{formatCurrency(16075.25)}</td>
-                  </tr>
+                  {[
+                    { naam: 'De Stille Hof', gemeente: 'Midden-Groningen', type: 'Gemeentelijk', tarief: 480, looptijd: '10 jaar', voordeligst: true },
+                    { naam: 'Westerwolde', gemeente: 'Westerwolde', type: 'Gemeentelijk', tarief: 645, looptijd: '10 jaar', voordeligst: false },
+                    { naam: 'Het Hogeland', gemeente: 'Het Hogeland', type: 'Gemeentelijk', tarief: 788, looptijd: '10 jaar', voordeligst: false },
+                    { naam: 'De Stille Hof', gemeente: 'Midden-Groningen', type: 'Gemeentelijk', tarief: 960, looptijd: '20 jaar', voordeligst: false },
+                    { naam: 'Eemsdelta', gemeente: 'Eemsdelta', type: 'Gemeentelijk', tarief: 977, looptijd: '10 jaar', voordeligst: false },
+                    { naam: 'R.K. Kerkhof Hereweg', gemeente: 'Groningen', type: 'Kerkelijk', tarief: 1200, looptijd: '20 jaar', voordeligst: false },
+                    { naam: 'Westerwolde', gemeente: 'Westerwolde', type: 'Gemeentelijk', tarief: 1932, looptijd: '30 jaar', voordeligst: false },
+                    { naam: 'Westerkwartier', gemeente: 'Westerkwartier', type: 'Gemeentelijk', tarief: 2035, looptijd: '20 jaar', voordeligst: false },
+                    { naam: 'Stadskanaal', gemeente: 'Stadskanaal', type: 'Gemeentelijk', tarief: 2176, looptijd: '25 jaar', voordeligst: false },
+                    { naam: 'Het Hogeland', gemeente: 'Het Hogeland', type: 'Gemeentelijk', tarief: 2364, looptijd: '30 jaar', voordeligst: false },
+                    { naam: 'Eemsdelta', gemeente: 'Eemsdelta', type: 'Gemeentelijk', tarief: 2442, looptijd: '30 jaar', voordeligst: false },
+                    { naam: 'Selwerderhof', gemeente: 'Groningen', type: 'Gemeentelijk', tarief: 2667, looptijd: '30 jaar', voordeligst: false },
+                    { naam: 'Pekela', gemeente: 'Pekela', type: 'Gemeentelijk', tarief: 2751, looptijd: '30 jaar', voordeligst: false },
+                    { naam: 'Noorder-/Zuiderbegraafplaats', gemeente: 'Groningen', type: 'Gemeentelijk', tarief: 4001, looptijd: '30 jaar', voordeligst: false },
+                    { naam: 'Hoogengraven', gemeente: 'Noordenveld', type: 'Natuur', tarief: 4500, looptijd: 'Eeuwig', voordeligst: false },
+                    { naam: 'De Walakker', gemeente: 'Tynaarlo', type: 'Gemeentelijk', tarief: 5528, looptijd: '20 jaar', voordeligst: false },
+                    { naam: 'Esserveld', gemeente: 'Groningen', type: 'Gemeentelijk', tarief: 8002, looptijd: '30 jaar', voordeligst: false },
+                  ].map((row, i) => (
+                    <tr key={i} className={`border-b border-border hover:bg-surface transition ${row.voordeligst ? 'bg-accent/5' : ''}`}>
+                      <td className="px-6 py-3">
+                        <span className="font-medium text-text-main">{row.naam}</span>
+                        {row.voordeligst && <span className="ml-2 text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full font-medium">Voordeligst</span>}
+                      </td>
+                      <td className="px-6 py-3 text-text-muted">{row.gemeente}</td>
+                      <td className="px-6 py-3 text-text-muted">{row.type}</td>
+                      <td className="px-6 py-3 text-right font-semibold text-text-main">{formatCurrency(row.tarief)}</td>
+                      <td className="px-6 py-3 text-right text-text-muted">{row.looptijd}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -202,11 +211,11 @@ export default function GroningenPage() {
             <div className="flex items-start gap-3">
               <Info size={24} className="text-accent flex-shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-semibold text-text-main mb-2">Belangrijkste inzicht</h4>
+                <h4 className="font-semibold text-text-main mb-2">Belangrijkste inzichten</h4>
                 <p className="text-text-muted">
-                  Het R.K. Kerkhof Hereweg is voor elke looptijd goedkoper dan De Walakker, zelfs inclusief het verplichte onderhoud.
-                  Bij 60 jaar bedraagt het verschil meer dan €3.000 (zonder onderhoud bij De Walakker) tot bijna €10.000 (met onderhoud).
-                  Dit illustreert hoe belangrijk het is om niet alleen naar grafrechten te kijken, maar naar de totale kosten.
+                  De prijsverschillen zijn enorm: het goedkoopste graf (De Stille Hof, €480 voor 10 jaar) kost meer dan 16× minder dan het duurste (Esserveld, €8.002 voor 30 jaar).
+                  Zelfs binnen de stad Groningen zijn de verschillen groot: Selwerderhof is 3× goedkoper dan Esserveld voor een vergelijkbaar graf.
+                  Vergelijken loont dus zeker de moeite, ook als u al weet in welke gemeente u wilt begraven.
                 </p>
               </div>
             </div>
