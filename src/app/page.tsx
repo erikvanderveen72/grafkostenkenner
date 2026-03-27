@@ -116,7 +116,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero — full-width foto */}
-      <div className="relative overflow-hidden min-h-[60vh] md:min-h-[70vh]">
+      <div className="relative overflow-hidden">
         {/* Background image */}
         <Image
           src="/images/hero-foto.png"
@@ -130,17 +130,17 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
 
         {/* Content — centered with frosted effect */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-[60vh] md:min-h-[70vh] px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 flex flex-col items-center justify-center pt-24 pb-16 sm:pt-28 sm:pb-20 md:min-h-[70vh] px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif font-light text-white leading-tight mb-3 drop-shadow-lg">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-serif font-light text-white leading-tight mb-2 sm:mb-3 drop-shadow-lg">
               Begraafplaats&shy;kosten
             </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-white/80 mb-6 drop-shadow-md">
+            <p className="text-lg sm:text-2xl md:text-3xl font-serif font-light text-white/80 mb-4 sm:mb-6 drop-shadow-md">
               vergelijken in Nederland
             </p>
 
-            {/* Frosted subtitle */}
-            <div className="inline-block bg-white/10 backdrop-blur-lg rounded-2xl px-6 py-4 mb-10 border border-white/10">
+            {/* Frosted subtitle — verborgen op mobile voor ruimte */}
+            <div className="hidden sm:inline-block bg-white/10 backdrop-blur-lg rounded-2xl px-6 py-4 mb-8 border border-white/10">
               <p className="text-white/90 text-base sm:text-lg max-w-xl">
                 Vergelijk grafrechten per gemeente en begraafplaats.
                 Transparant, onafhankelijk en gratis.
@@ -148,20 +148,22 @@ export default function HomePage() {
             </div>
 
             {/* Zoekfunctie */}
-            <GemeenteZoeken gemeenten={gemeenten.map((g) => ({ naam: g.naam, slug: g.slug, provincie: g.provincie }))} />
+            <div className="sm:mt-0 mt-2">
+              <GemeenteZoeken gemeenten={gemeenten.map((g) => ({ naam: g.naam, slug: g.slug, provincie: g.provincie }))} />
+            </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-4 sm:mt-6">
               <Link
                 href="#provincies"
-                className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"
+                className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl text-sm sm:text-base"
               >
-                <Search size={20} />
+                <Search size={18} />
                 Vergelijk grafkosten
               </Link>
               <Link
                 href="#provincies"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/20 transition-all"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold hover:bg-white/20 transition-all text-sm sm:text-base"
               >
                 Bekijk alle provincies
               </Link>
@@ -171,22 +173,22 @@ export default function HomePage() {
       </div>
 
       {/* Stats bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
-        <div className="bg-white rounded-2xl shadow-lg border border-border p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 sm:-mt-8 relative z-20">
+        <div className="bg-white rounded-2xl shadow-lg border border-border p-4 sm:p-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               { icon: MapPin, label: 'Gemeenten', value: '153', sub: 'in 12 provincies' },
               { icon: TrendingDown, label: 'Prijsverschil', value: '> 11.000%', sub: 'tussen gemeenten' },
               { icon: Clock, label: 'Looptijden', value: '10-99 jaar', sub: 'grafrechten' },
               { icon: Eye, label: 'Transparant', value: '100%', sub: 'onafhankelijk' },
             ].map((stat) => (
-              <div key={stat.label} className="flex items-center gap-4">
-                <div className="bg-primary-light p-3 rounded-xl">
-                  <stat.icon size={24} className="text-primary" />
+              <div key={stat.label} className="flex items-center gap-3 sm:gap-4">
+                <div className="bg-primary-light p-2 sm:p-3 rounded-xl shrink-0">
+                  <stat.icon size={20} className="text-primary sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-text-main">{stat.value}</p>
-                  <p className="text-sm text-text-muted">{stat.sub}</p>
+                <div className="min-w-0">
+                  <p className="text-lg sm:text-2xl font-bold text-text-main leading-tight">{stat.value}</p>
+                  <p className="text-xs sm:text-sm text-text-muted">{stat.sub}</p>
                 </div>
               </div>
             ))}
