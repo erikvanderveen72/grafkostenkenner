@@ -13,8 +13,8 @@ const navItems = [
       { label: 'Meer provincies', href: '#', description: 'Binnenkort beschikbaar' },
     ],
   },
+  { label: 'Uitvaartkosten', href: '/uitvaartkosten' },
   { label: 'Grafrechten uitleg', href: '/grafrechten-uitleg' },
-  { label: 'Begrippenlijst', href: '/begrippenlijst' },
   { label: 'Bespaartips', href: '/grafkosten-besparen' },
 ];
 

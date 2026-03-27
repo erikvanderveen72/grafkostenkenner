@@ -14,6 +14,7 @@ const columns = [
   {
     title: 'Informatie',
     links: [
+      { label: 'Wat kost een uitvaart?', href: '/uitvaartkosten' },
       { label: 'Soorten begraafplaatsen', href: '/soorten-begraafplaatsen' },
       { label: 'Grafrechten uitleg', href: '/grafrechten-uitleg' },
       { label: 'Begrippenlijst', href: '/begrippenlijst' },

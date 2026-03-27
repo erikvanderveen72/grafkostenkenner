@@ -152,7 +152,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: MapPin, label: 'Provincies', value: '12', sub: 'heel Nederland' },
-              { icon: TrendingDown, label: 'Prijsverschil', value: 'tot 3x', sub: 'per gemeente' },
+              { icon: TrendingDown, label: 'Prijsverschil', value: '> 700%', sub: 'tussen gemeenten' },
               { icon: Clock, label: 'Looptijden', value: '10-80 jaar', sub: 'grafrechten' },
               { icon: Eye, label: 'Transparant', value: '100%', sub: 'onafhankelijk' },
             ].map((stat) => (
@@ -192,6 +192,47 @@ export default function HomePage() {
               <p className="text-stone-600 text-sm">{soort.description}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Uitvaartkosten inzicht */}
+      <section className="bg-gradient-to-br from-stone-900 to-stone-800 py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-6">
+                <div className="w-2 h-2 bg-amber-400 rounded-full" />
+                <span className="text-stone-300 text-sm font-medium">Marktinzicht</span>
+              </div>
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Bijna 40% van de Nederlanders onderschat de uitvaartkosten
+              </h2>
+              <p className="text-stone-400 mb-6">
+                De gemiddelde uitvaart kost €8.000 tot €12.000. Grafrechten variëren met meer dan 700% tussen
+                gemeenten. 90% van de uitvaartverzorgers deelt geen tarieven online. Wij brengen transparantie.
+              </p>
+              <Link
+                href="/uitvaartkosten"
+                className="inline-flex items-center gap-2 bg-white text-stone-900 px-6 py-3 rounded-xl font-semibold hover:shadow-xl transition-all"
+              >
+                Bekijk het kostenoverzicht
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { waarde: '€8.000–€12.000', label: 'Gemiddelde uitvaart', kleur: 'bg-emerald-500/20 text-emerald-300' },
+                { waarde: '> 700%', label: 'Prijsvariatie grafrechten', kleur: 'bg-amber-500/20 text-amber-300' },
+                { waarde: '40%', label: 'Onderschat de kosten', kleur: 'bg-rose-500/20 text-rose-300' },
+                { waarde: '€861–€8.895', label: 'Spreiding particulier graf', kleur: 'bg-blue-500/20 text-blue-300' },
+              ].map((item) => (
+                <div key={item.label} className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-5">
+                  <p className={`text-lg font-bold ${item.kleur.split(' ')[1]}`}>{item.waarde}</p>
+                  <p className="text-stone-400 text-sm mt-1">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
