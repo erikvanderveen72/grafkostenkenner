@@ -16,7 +16,19 @@ import {
   Eye,
 } from 'lucide-react';
 import FAQSchema from '@/components/FAQSchema';
-import { provincies, formatCurrency } from '@/lib/fallback-data';
+import GemeenteZoeken from '@/components/GemeenteZoeken';
+import { provincies, gemeenten, formatCurrency } from '@/lib/fallback-data';
+
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Grafkosten Vergelijken 2026 — 153 Gemeenten | Begraafplaatskosten.nl',
+  description:
+    'Vergelijk grafkosten en grafrechten van 153 gemeenten in 12 provincies. Bekijk tarieven, looptijden en onderhoudskosten. 100% onafhankelijk en gratis.',
+  alternates: {
+    canonical: 'https://begraafplaatskosten.nl',
+  },
+};
 
 export const revalidate = 3600;
 
@@ -135,8 +147,11 @@ export default function HomePage() {
               </p>
             </div>
 
+            {/* Zoekfunctie */}
+            <GemeenteZoeken gemeenten={gemeenten.map((g) => ({ naam: g.naam, slug: g.slug, provincie: g.provincie }))} />
+
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link
                 href="#provincies"
                 className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"

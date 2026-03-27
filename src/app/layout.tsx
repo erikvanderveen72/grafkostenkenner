@@ -36,8 +36,9 @@ export const metadata: Metadata = {
     siteName: 'Begraafplaatskosten.nl',
     title: 'Begraafplaatskosten Vergelijken 2026 | Begraafplaatskosten.nl',
     description: 'Vergelijk grafkosten per gemeente. Onafhankelijk, transparant en gratis.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Begraafplaatskosten.nl — Vergelijk grafkosten in heel Nederland' }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: ['/og-image.png'] },
   alternates: {
     canonical: 'https://begraafplaatskosten.nl',
     languages: { 'nl-NL': 'https://begraafplaatskosten.nl' },
