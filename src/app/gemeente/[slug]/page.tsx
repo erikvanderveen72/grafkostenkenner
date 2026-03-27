@@ -229,8 +229,8 @@ export default async function GemeentePage({
                   <div className="w-3 h-3 rounded-full bg-primary" />
                   {label}
                 </h3>
-                <div className="bg-white rounded-2xl border border-border overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="bg-white rounded-2xl border border-border overflow-x-auto">
+                  <table className="w-full text-sm min-w-[480px]">
                     <thead>
                       <tr className="bg-surface-alt border-b border-border">
                         <th className="px-4 sm:px-6 py-3 text-left font-semibold text-text-main">
