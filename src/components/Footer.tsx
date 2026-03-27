@@ -6,9 +6,15 @@ const columns = [
     title: 'Provincies',
     links: [
       { label: 'Groningen', href: '/provincie/groningen' },
-      { label: 'Friesland', href: '#' },
+      { label: 'Friesland', href: '/provincie/friesland' },
       { label: 'Drenthe', href: '/provincie/drenthe' },
-      { label: 'Overijssel', href: '#' },
+      { label: 'Overijssel', href: '/provincie/overijssel' },
+      { label: 'Gelderland', href: '/provincie/gelderland' },
+      { label: 'Noord-Holland', href: '/provincie/noord-holland' },
+      { label: 'Zuid-Holland', href: '/provincie/zuid-holland' },
+      { label: 'Noord-Brabant', href: '/provincie/noord-brabant' },
+      { label: 'Limburg', href: '/provincie/limburg' },
+      { label: 'Alle provincies', href: '/#provincies' },
     ],
   },
   {

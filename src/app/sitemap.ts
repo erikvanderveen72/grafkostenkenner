@@ -1,8 +1,18 @@
 import { MetadataRoute } from 'next';
+import { provincies } from '@/lib/fallback-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://grafkostenkenner.nl';
   const lastModified = new Date();
+
+  const provinciePages: MetadataRoute.Sitemap = provincies
+    .filter((p) => p.beschikbaar)
+    .map((p) => ({
+      url: `${baseUrl}/provincie/${p.slug}`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    }));
 
   return [
     {
@@ -11,23 +21,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1.0,
     },
+    ...provinciePages,
     {
-      url: `${baseUrl}/provincie/groningen`,
+      url: `${baseUrl}/uitvaartkosten`,
       lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/soorten-begraafplaatsen`,
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/provincie/drenthe`,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
     },
     {
       url: `${baseUrl}/grafrechten-uitleg`,

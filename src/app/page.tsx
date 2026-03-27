@@ -130,7 +130,7 @@ export default function HomePage() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/provincie/groningen"
+              href="#provincies"
               className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"
             >
               <Search size={20} />
@@ -151,9 +151,9 @@ export default function HomePage() {
         <div className="bg-white rounded-2xl shadow-lg border border-border p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: MapPin, label: 'Provincies', value: '12', sub: 'heel Nederland' },
-              { icon: TrendingDown, label: 'Prijsverschil', value: '> 700%', sub: 'tussen gemeenten' },
-              { icon: Clock, label: 'Looptijden', value: '10-80 jaar', sub: 'grafrechten' },
+              { icon: MapPin, label: 'Gemeenten', value: '153', sub: 'in 12 provincies' },
+              { icon: TrendingDown, label: 'Prijsverschil', value: '> 11.000%', sub: 'tussen gemeenten' },
+              { icon: Clock, label: 'Looptijden', value: '10-99 jaar', sub: 'grafrechten' },
               { icon: Eye, label: 'Transparant', value: '100%', sub: 'onafhankelijk' },
             ].map((stat) => (
               <div key={stat.label} className="flex items-center gap-4">
@@ -259,7 +259,7 @@ export default function HomePage() {
                       {prov.naam}
                     </h3>
                     <p className="text-xs text-stone-500 mt-1">
-                      {prov.aantalBegraafplaatsen} begraafplaats{prov.aantalBegraafplaatsen !== 1 ? 'en' : ''}
+                      {prov.aantalBegraafplaatsen} gemeente{prov.aantalBegraafplaatsen !== 1 ? 'n' : ''}
                     </p>
                     <ArrowRight
                       size={16}
