@@ -53,7 +53,7 @@ export default function GrafkostenVergelijker({
   );
 
   const [looptijd, setLooptijd] = useState(() => beschikbareLooptijden.find((l) => l === 30) || beschikbareLooptijden[0] || 20);
-  const [inclusiefOnderhoud, setInclusiefOnderhoud] = useState(true);
+  const inclusiefOnderhoud = false;
   const [sortKey, setSortKey] = useState<SortKey>('totaal');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -118,7 +118,7 @@ export default function GrafkostenVergelijker({
           <h3 className="text-lg font-semibold text-text-main">Vergelijkingsopties</h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Graftype */}
           <div>
             <label className="block text-sm font-medium text-text-muted mb-2">Type graf</label>
@@ -173,21 +173,6 @@ export default function GrafkostenVergelijker({
               ))}
             </select>
           </div>
-
-          {/* Onderhoudscontract */}
-          <div>
-            <label className="block text-sm font-medium text-text-muted mb-2">Onderhoudscontract</label>
-            <button
-              onClick={() => setInclusiefOnderhoud(!inclusiefOnderhoud)}
-              className={`w-full px-4 py-2.5 rounded-xl text-sm font-medium border transition-all ${
-                inclusiefOnderhoud
-                  ? 'bg-accent text-white border-accent shadow-md'
-                  : 'bg-surface border-border text-text-muted hover:border-primary'
-              }`}
-            >
-              {inclusiefOnderhoud ? '✓ Inclusief onderhoudscontract' : 'Zonder onderhoudscontract'}
-            </button>
-          </div>
         </div>
       </div>
 
@@ -217,6 +202,7 @@ export default function GrafkostenVergelijker({
                   <p className="text-sm text-text-muted">
                     {goedkoopste.begraafplaats.naam} • {goedkoopste.begraafplaats.typeLabel} •{' '}
                     {looptijd === 99 ? 'eeuwig grafrecht' : `${formatCurrency(goedkoopste.kosten.perJaar)} per jaar`}
+                    {goedkoopste.begraafplaats.onderhoud.type === 'verplicht' && ' • onderhoud verplicht'}
                   </p>
                 </div>
               </div>
@@ -240,27 +226,35 @@ export default function GrafkostenVergelijker({
           {showChart && (
             <div className="bg-white border border-border rounded-2xl p-6 shadow-sm">
               <h4 className="text-sm font-semibold text-text-muted mb-4">
-                Totaalkosten vergelijking ({looptijdLabel(looptijd)}{inclusiefOnderhoud ? ', incl. onderhoudscontract' : ''})
+                Grafrechten vergelijking ({looptijdLabel(looptijd)}, excl. onderhoud)
               </h4>
               <div className="space-y-3">
                 {resultaten.map((r, idx) => {
                   const pct = (r.kosten.totaal / maxTotaal) * 100;
+                  const heeftVerplichtOnderhoud = r.begraafplaats.onderhoud.type === 'verplicht';
                   return (
                     <div key={r.begraafplaats.id} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                       <div className="text-sm text-text-main font-medium sm:w-48 md:w-64 sm:shrink-0 truncate">
                         {korteNaam(r.begraafplaats)}
                       </div>
-                      <div className="flex-1 bg-surface rounded-full h-8 overflow-hidden">
-                        <div
-                          className={`h-full rounded-full flex items-center px-3 transition-all duration-500 ${
-                            idx === 0 ? 'bg-accent' : 'bg-primary'
-                          }`}
-                          style={{ width: `${Math.max(pct, 12)}%` }}
-                        >
-                          <span className="text-white text-xs font-bold whitespace-nowrap">
-                            {formatCurrency(r.kosten.totaal)}
-                          </span>
+                      <div className="flex-1 flex items-center gap-2">
+                        <div className="flex-1 bg-surface rounded-full h-8 overflow-hidden">
+                          <div
+                            className={`h-full rounded-full flex items-center px-3 transition-all duration-500 ${
+                              idx === 0 ? 'bg-accent' : 'bg-primary'
+                            }`}
+                            style={{ width: `${Math.max(pct, 12)}%` }}
+                          >
+                            <span className="text-white text-xs font-bold whitespace-nowrap">
+                              {formatCurrency(r.kosten.totaal)}
+                            </span>
+                          </div>
                         </div>
+                        {heeftVerplichtOnderhoud && (
+                          <span className="text-xs text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">
+                            + onderhoud verplicht
+                          </span>
+                        )}
                       </div>
                     </div>
                   );
@@ -277,7 +271,7 @@ export default function GrafkostenVergelijker({
                   {[
                     { key: 'naam' as SortKey, label: 'Begraafplaats' },
                     { key: 'grafrechten' as SortKey, label: 'Grafrechten' },
-                    { key: 'totaal' as SortKey, label: inclusiefOnderhoud ? 'Totaal (incl. onderhoudscontract)' : 'Totaal' },
+                    { key: 'totaal' as SortKey, label: 'Totaal' },
                     { key: 'perJaar' as SortKey, label: 'Per jaar' },
                   ].map((col) => (
                     <th
@@ -311,9 +305,9 @@ export default function GrafkostenVergelijker({
                       <td className="px-6 py-4 font-medium text-text-main">{formatCurrency(r.kosten.grafrechten)}</td>
                       <td className="px-6 py-4">
                         <span className="text-lg font-bold text-primary">{formatCurrency(r.kosten.totaal)}</span>
-                        {inclusiefOnderhoud && r.kosten.onderhoud > 0 && (
-                          <div className="text-xs text-text-muted mt-0.5">
-                            waarvan {formatCurrency(r.kosten.onderhoud)} onderhoudscontract
+                        {r.begraafplaats.onderhoud.type === 'verplicht' && (
+                          <div className="text-xs text-amber-600 mt-0.5">
+                            + onderhoud verplicht{r.begraafplaats.onderhoud.perJaar ? ` (${formatCurrency(r.begraafplaats.onderhoud.perJaar)}/jr)` : ''}
                           </div>
                         )}
                       </td>
@@ -390,9 +384,9 @@ export default function GrafkostenVergelijker({
                       <p className="font-bold text-primary">{formatCurrency(r.kosten.totaal)}</p>
                     </div>
                   </div>
-                  {inclusiefOnderhoud && r.kosten.onderhoud > 0 && (
-                    <p className="text-xs text-text-muted mt-2">
-                      Waarvan {formatCurrency(r.kosten.onderhoud)} onderhoudscontract ({looptijd === 99 ? 'eenmalig' : `${formatCurrency(r.kosten.perJaar)}/jaar`})
+                  {r.begraafplaats.onderhoud.type === 'verplicht' && (
+                    <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 mt-2">
+                      + Onderhoud verplicht{r.begraafplaats.onderhoud.perJaar ? ` (${formatCurrency(r.begraafplaats.onderhoud.perJaar)}/jr)` : ''}
                     </p>
                   )}
                   <button
