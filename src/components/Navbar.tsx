@@ -42,18 +42,18 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white shadow-md'
-          : 'bg-gradient-to-r from-earth-dark via-earth-mid to-earth-dark'
+          ? 'bg-white/95 backdrop-blur-md shadow-md'
+          : 'bg-black/20 backdrop-blur-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo — no icon */}
           <Link href="/" className="flex flex-col shrink-0">
-            <span className={`text-[22px] font-extrabold tracking-tight leading-tight ${isScrolled ? 'text-earth-dark' : 'text-white'}`}>
-              begraafplaats<span className={isScrolled ? 'text-primary' : 'text-green-300'}>kosten</span><span className={isScrolled ? 'text-text-muted' : 'text-stone-400'}>.nl</span>
+            <span className={`text-[22px] font-extrabold tracking-tight leading-tight ${isScrolled ? 'text-earth-dark' : 'text-white drop-shadow-md'}`}>
+              begraafplaats<span className={isScrolled ? 'text-primary' : 'text-white/80'}>kosten</span><span className={isScrolled ? 'text-text-muted' : 'text-white/60'}>.nl</span>
             </span>
-            <span className={`text-[11px] tracking-[0.2em] uppercase font-medium ${isScrolled ? 'text-text-muted' : 'text-stone-400'}`}>
+            <span className={`text-[11px] tracking-[0.2em] uppercase font-medium ${isScrolled ? 'text-text-muted' : 'text-white/60 drop-shadow-sm'}`}>
               geeft rust
             </span>
           </Link>
@@ -68,7 +68,7 @@ export default function Navbar() {
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       isScrolled
                         ? 'text-text-muted hover:text-text-main hover:bg-earth-light'
-                        : 'text-stone-300 hover:text-white hover:bg-white/10'
+                        : 'text-white/80 hover:text-white hover:bg-white/10 drop-shadow-sm'
                     }`}
                   >
                     {item.label}
@@ -79,7 +79,7 @@ export default function Navbar() {
                       className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         isScrolled
                           ? 'text-text-muted hover:text-text-main hover:bg-earth-light'
-                          : 'text-stone-300 hover:text-white hover:bg-white/10'
+                          : 'text-white/80 hover:text-white hover:bg-white/10 drop-shadow-sm'
                       }`}
                     >
                       {item.label}
@@ -108,7 +108,7 @@ export default function Navbar() {
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ml-4 ${
                 isScrolled
                   ? 'bg-primary-light text-primary'
-                  : 'bg-green-500/20 text-green-300'
+                  : 'bg-white/15 text-white/90 backdrop-blur-sm border border-white/20'
               }`}
             >
               <Shield size={12} />

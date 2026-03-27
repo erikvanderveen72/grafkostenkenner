@@ -120,12 +120,6 @@ export default function HomePage() {
         {/* Content — centered with frosted effect */}
         <div className="relative z-10 flex flex-col items-center justify-center min-h-[60vh] md:min-h-[70vh] px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-8">
-              <div className="w-2 h-2 bg-green-400 rounded-full" />
-              <span className="text-white/90 text-sm font-medium">Tarieven 2026</span>
-            </div>
-
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif font-light text-white leading-tight mb-3 drop-shadow-lg">
               Begraafplaats&shy;kosten
             </h1>
