@@ -7,7 +7,7 @@ const columns = [
     links: [
       { label: 'Groningen', href: '/provincie/groningen' },
       { label: 'Friesland', href: '#' },
-      { label: 'Drenthe', href: '#' },
+      { label: 'Drenthe', href: '/provincie/drenthe' },
       { label: 'Overijssel', href: '#' },
     ],
   },
@@ -16,12 +16,8 @@ const columns = [
     links: [
       { label: 'Soorten begraafplaatsen', href: '/soorten-begraafplaatsen' },
       { label: 'Grafrechten uitleg', href: '/grafrechten-uitleg' },
-    ],
-  },
-  {
-    title: 'Vergelijk',
-    links: [
-      { label: 'Grafkosten Groningen', href: '/provincie/groningen' },
+      { label: 'Begrippenlijst', href: '/begrippenlijst' },
+      { label: 'Grafkosten besparen', href: '/grafkosten-besparen' },
     ],
   },
   {

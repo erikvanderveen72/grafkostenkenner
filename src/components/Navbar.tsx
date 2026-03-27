@@ -9,12 +9,13 @@ const navItems = [
     label: 'Provincies',
     items: [
       { label: 'Groningen', href: '/provincie/groningen', description: '13 begraafplaatsen in 9 gemeenten' },
+      { label: 'Drenthe', href: '/provincie/drenthe', description: '10 gemeenten vergeleken' },
       { label: 'Meer provincies', href: '#', description: 'Binnenkort beschikbaar' },
     ],
   },
-  { label: 'Soorten begraafplaatsen', href: '/soorten-begraafplaatsen' },
   { label: 'Grafrechten uitleg', href: '/grafrechten-uitleg' },
-  { label: 'Over ons', href: '/over-ons' },
+  { label: 'Begrippenlijst', href: '/begrippenlijst' },
+  { label: 'Bespaartips', href: '/grafkosten-besparen' },
 ];
 
 export default function Navbar() {
