@@ -152,7 +152,7 @@ export default function HomePage() {
             <div className="hidden lg:block relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
                 <Image
-                  src="/images/hero-duinen.jpg"
+                  src="/images/hero-duinen.png"
                   alt="Ouder echtpaar hand in hand bij de duinen"
                   width={640}
                   height={480}
