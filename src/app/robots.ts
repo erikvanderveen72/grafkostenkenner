@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://grafkostenkenner.nl/sitemap.xml',
+    sitemap: 'https://begraafplaatskosten.nl/sitemap.xml',
   };
 }

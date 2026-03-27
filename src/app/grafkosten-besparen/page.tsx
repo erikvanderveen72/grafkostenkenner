@@ -118,7 +118,7 @@ export default function GrafkostenBesparenPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 bg-gradient-to-r from-stone-900 to-stone-800 rounded-2xl p-8 md:p-12 text-center">
+        <div className="mt-16 bg-gradient-to-r from-earth-dark to-earth-mid rounded-2xl p-8 md:p-12 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Vergelijk nu de grafkosten in uw regio
           </h2>
@@ -128,7 +128,7 @@ export default function GrafkostenBesparenPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/provincie/groningen"
-              className="inline-flex items-center gap-2 bg-white text-stone-900 px-6 py-3 rounded-xl font-semibold hover:bg-stone-100 transition"
+              className="inline-flex items-center gap-2 bg-white text-earth-dark px-6 py-3 rounded-xl font-semibold hover:bg-earth-light transition"
             >
               Groningen vergelijken <ArrowRight size={18} />
             </Link>

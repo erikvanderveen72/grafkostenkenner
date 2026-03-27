@@ -3,7 +3,7 @@ import PageHero from '@/components/PageHero';
 
 export const metadata: Metadata = {
   title: 'Privacybeleid',
-  description: 'Het privacybeleid van Grafkostenkenner.nl. Wij respecteren uw privacy.',
+  description: 'Het privacybeleid van Begraafplaatskosten.nl. Wij respecteren uw privacy.',
 };
 
 export default function PrivacyPage() {
@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-xl font-bold text-text-main mb-3">1. Algemeen</h2>
             <p className="text-text-muted leading-relaxed">
-              Grafkostenkenner.nl respecteert uw privacy. Wij verzamelen alleen gegevens die noodzakelijk zijn voor het functioneren van de website. Wij verkopen of delen uw gegevens niet met derden.
+              Begraafplaatskosten.nl respecteert uw privacy. Wij verzamelen alleen gegevens die noodzakelijk zijn voor het functioneren van de website. Wij verkopen of delen uw gegevens niet met derden.
             </p>
           </div>
 

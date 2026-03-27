@@ -409,7 +409,7 @@ export default function GrafkostenVergelijker({
         <p>
           <strong>Let op:</strong> De getoonde tarieven zijn gebaseerd op officiële gemeentelijke verordeningen en informatie van begraafplaatsen.
           Neem altijd contact op met de betreffende begraafplaats voor de actuele tarieven.
-          Grafkostenkenner.nl is niet verantwoordelijk voor afwijkingen.
+          Begraafplaatskosten.nl is niet verantwoordelijk voor afwijkingen.
         </p>
       </div>
     </div>

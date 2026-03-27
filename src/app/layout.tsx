@@ -8,8 +8,8 @@ const inter = Inter({ variable: '--font-inter', subsets: ['latin'], display: 'sw
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Grafkostenkenner.nl',
-    default: 'Grafkosten Vergelijken 2026 | Grafkostenkenner.nl',
+    template: '%s | Begraafplaatskosten.nl',
+    default: 'Begraafplaatskosten Vergelijken 2026 | Begraafplaatskosten.nl',
   },
   description:
     'Vergelijk grafkosten en grafrechten in heel Nederland. Bekijk tarieven per gemeente, begraafplaats en looptijd. 100% onafhankelijk en gratis.',
@@ -27,19 +27,19 @@ export const metadata: Metadata = {
     'urnengraf kosten',
     'begraafplaats Nederland',
   ],
-  metadataBase: new URL('https://grafkostenkenner.nl'),
+  metadataBase: new URL('https://begraafplaatskosten.nl'),
   openGraph: {
     type: 'website',
     locale: 'nl_NL',
-    url: 'https://grafkostenkenner.nl',
-    siteName: 'Grafkostenkenner.nl',
-    title: 'Grafkosten Vergelijken 2026 | Grafkostenkenner.nl',
+    url: 'https://begraafplaatskosten.nl',
+    siteName: 'Begraafplaatskosten.nl',
+    title: 'Begraafplaatskosten Vergelijken 2026 | Begraafplaatskosten.nl',
     description: 'Vergelijk grafkosten per gemeente. Onafhankelijk, transparant en gratis.',
   },
   twitter: { card: 'summary_large_image' },
   alternates: {
-    canonical: 'https://grafkostenkenner.nl',
-    languages: { 'nl-NL': 'https://grafkostenkenner.nl' },
+    canonical: 'https://begraafplaatskosten.nl',
+    languages: { 'nl-NL': 'https://begraafplaatskosten.nl' },
   },
   robots: {
     index: true,
@@ -66,15 +66,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@graph': [
                 {
                   '@type': 'WebSite',
-                  name: 'Grafkostenkenner.nl',
-                  url: 'https://grafkostenkenner.nl',
+                  name: 'Begraafplaatskosten.nl',
+                  url: 'https://begraafplaatskosten.nl',
                   description:
                     'Vergelijk grafkosten en grafrechten in heel Nederland per gemeente en begraafplaats.',
                 },
                 {
                   '@type': 'Organization',
-                  name: 'Grafkostenkenner.nl',
-                  url: 'https://grafkostenkenner.nl',
+                  name: 'Begraafplaatskosten.nl',
+                  url: 'https://begraafplaatskosten.nl',
                   description:
                     'Onafhankelijke vergelijkingssite voor grafkosten en grafrechten in Nederland.',
                   contactPoint: {

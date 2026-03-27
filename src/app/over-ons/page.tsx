@@ -4,16 +4,16 @@ import PageHero from '@/components/PageHero';
 import { Shield, Eye, Search, Clock, Mail, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Over Ons - Grafkostenkenner.nl',
+  title: 'Over Ons - Begraafplaatskosten.nl',
   description:
-    'Grafkostenkenner.nl maakt grafkosten in Nederland transparant en vergelijkbaar. Onafhankelijk, gratis en regelmatig bijgewerkt.',
+    'Begraafplaatskosten.nl maakt grafkosten in Nederland transparant en vergelijkbaar. Onafhankelijk, gratis en regelmatig bijgewerkt.',
 };
 
 export default function OverOnsPage() {
   return (
     <>
       <PageHero
-        title="Over Grafkostenkenner"
+        title="Over Begraafplaatskosten"
         highlightedSubtitle="Transparantie in grafkosten"
         subtitle="Waarom wij grafkosten vergelijkbaar willen maken."
         showBreadcrumbs
@@ -22,12 +22,12 @@ export default function OverOnsPage() {
 
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="prose prose-stone max-w-none mb-12">
-          <h2 className="text-2xl font-bold text-text-main mb-4">Waarom Grafkostenkenner?</h2>
+          <h2 className="text-2xl font-bold text-text-main mb-4">Waarom Begraafplaatskosten?</h2>
           <p className="text-text-muted leading-relaxed mb-6">
             In Nederland verschillen de kosten voor grafrechten sterk per gemeente en per begraafplaats. Op sommige begraafplaatsen betaalt u minder dan €500 voor 10 jaar, terwijl u elders meer dan €11.000 betaalt voor 30 jaar. Deze informatie is vaak moeilijk te vinden en lastig te vergelijken.
           </p>
           <p className="text-text-muted leading-relaxed mb-6">
-            Grafkostenkenner.nl maakt deze informatie overzichtelijk en transparant. Wij verzamelen tarieven van gemeentelijke en particuliere begraafplaatsen en presenteren deze op een manier die het eenvoudig maakt om te vergelijken.
+            Begraafplaatskosten.nl maakt deze informatie overzichtelijk en transparant. Wij verzamelen tarieven van gemeentelijke en particuliere begraafplaatsen en presenteren deze op een manier die het eenvoudig maakt om te vergelijken.
           </p>
         </div>
 

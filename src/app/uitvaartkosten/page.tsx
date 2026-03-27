@@ -198,7 +198,7 @@ export default function UitvaartKostenPage() {
           </div>
 
           {/* Totaal */}
-          <div className="mt-6 bg-gradient-to-r from-stone-900 to-stone-800 rounded-2xl p-6 text-white">
+          <div className="mt-6 bg-gradient-to-r from-earth-dark to-earth-mid rounded-2xl p-6 text-white">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <p className="text-stone-400 text-sm font-medium">Totale kosten begrafenis (indicatief)</p>
@@ -402,7 +402,7 @@ export default function UitvaartKostenPage() {
           </div>
 
           <p className="text-sm text-stone-500 mt-6">
-            Grafkostenkenner.nl is 100% onafhankelijk. Wij ontvangen geen provisie van verzekeraars of
+            Begraafplaatskosten.nl is 100% onafhankelijk. Wij ontvangen geen provisie van verzekeraars of
             uitvaartondernemers. Onze vergelijkingen zijn gebaseerd op openbare gemeentelijke verordeningen (Artikel 11 Auteurswet).
           </p>
         </div>

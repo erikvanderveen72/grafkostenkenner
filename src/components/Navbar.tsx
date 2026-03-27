@@ -43,20 +43,15 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-white shadow-md'
-          : 'bg-gradient-to-r from-stone-950 via-stone-900 to-stone-950'
+          : 'bg-gradient-to-r from-earth-dark via-earth-mid to-earth-dark'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <svg width="34" height="34" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="18" fill={isScrolled ? '#475569' : '#475569'} />
-              <circle cx="18" cy="18" r="14" fill={isScrolled ? '#334155' : '#1e293b'} />
-              <text x="18" y="24" textAnchor="middle" fontFamily="Inter" fontSize="16" fontWeight="700" fill="#fff">&#x271D;</text>
-            </svg>
-            <span className={`text-[22px] font-extrabold tracking-tight ${isScrolled ? 'text-stone-900' : 'text-white'}`}>
-              grafkosten<span className="text-slate-400">kenner</span><span className={isScrolled ? 'text-slate-500' : 'text-slate-400'}>.nl</span>
+          {/* Logo — no icon */}
+          <Link href="/" className="flex items-center shrink-0">
+            <span className={`text-[22px] font-extrabold tracking-tight ${isScrolled ? 'text-earth-dark' : 'text-white'}`}>
+              begraafplaats<span className={isScrolled ? 'text-primary' : 'text-green-300'}>kosten</span><span className={isScrolled ? 'text-text-muted' : 'text-stone-400'}>.nl</span>
             </span>
           </Link>
 
@@ -69,7 +64,7 @@ export default function Navbar() {
                     href={item.href}
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       isScrolled
-                        ? 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                        ? 'text-text-muted hover:text-text-main hover:bg-earth-light'
                         : 'text-stone-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -80,22 +75,22 @@ export default function Navbar() {
                     <button
                       className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         isScrolled
-                          ? 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                          ? 'text-text-muted hover:text-text-main hover:bg-earth-light'
                           : 'text-stone-300 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       {item.label}
                       <ChevronDown size={14} />
                     </button>
-                    <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                       <div className="p-2 grid grid-cols-2 gap-0.5">
                         {item.items?.map((subItem) => (
                           <Link
                             key={subItem.label}
                             href={subItem.href}
-                            className="block px-3 py-2 rounded-lg hover:bg-stone-50 transition-colors"
+                            className="block px-3 py-2 rounded-lg hover:bg-earth-light transition-colors"
                           >
-                            <div className="text-sm font-medium text-stone-900">{subItem.label}</div>
+                            <div className="text-sm font-medium text-text-main">{subItem.label}</div>
                           </Link>
                         ))}
                       </div>
@@ -109,8 +104,8 @@ export default function Navbar() {
             <div
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ml-4 ${
                 isScrolled
-                  ? 'bg-emerald-50 text-emerald-700'
-                  : 'bg-emerald-500/20 text-emerald-300'
+                  ? 'bg-primary-light text-primary'
+                  : 'bg-green-500/20 text-green-300'
               }`}
             >
               <Shield size={12} />
@@ -121,7 +116,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`lg:hidden p-2 rounded-lg ${isScrolled ? 'text-stone-700' : 'text-white'}`}
+            className={`lg:hidden p-2 rounded-lg ${isScrolled ? 'text-text-main' : 'text-white'}`}
           >
             {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -130,7 +125,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isMobileOpen && (
-        <div className="lg:hidden bg-white border-t border-stone-100 rounded-b-2xl shadow-xl">
+        <div className="lg:hidden bg-white border-t border-border rounded-b-2xl shadow-xl">
           <div className="px-4 py-3 space-y-1">
             {navItems.map((item) => (
               <div key={item.label}>
@@ -138,19 +133,19 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     onClick={() => setIsMobileOpen(false)}
-                    className="block px-3 py-2.5 rounded-lg text-sm font-medium text-stone-700 hover:bg-stone-50"
+                    className="block px-3 py-2.5 rounded-lg text-sm font-medium text-text-main hover:bg-earth-light"
                   >
                     {item.label}
                   </Link>
                 ) : (
                   <>
-                    <div className="px-3 py-2.5 text-sm font-medium text-stone-400">{item.label}</div>
+                    <div className="px-3 py-2.5 text-sm font-medium text-text-muted">{item.label}</div>
                     {item.items?.map((subItem) => (
                       <Link
                         key={subItem.label}
                         href={subItem.href}
                         onClick={() => setIsMobileOpen(false)}
-                        className="flex items-center gap-2 px-6 py-2 rounded-lg text-sm text-stone-600 hover:bg-stone-50"
+                        className="flex items-center gap-2 px-6 py-2 rounded-lg text-sm text-text-muted hover:bg-earth-light"
                       >
                         <MapPin size={14} />
                         {subItem.label}

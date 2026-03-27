@@ -28,7 +28,7 @@ const columns = [
     ],
   },
   {
-    title: 'Over Grafkostenkenner',
+    title: 'Over Begraafplaatskosten',
     links: [
       { label: 'Over ons', href: '/over-ons' },
       { label: 'Privacy', href: '/privacy' },
@@ -45,18 +45,13 @@ const trustBadges = [
 
 export default function Footer() {
   return (
-    <footer className="bg-stone-950 text-stone-400">
+    <footer className="bg-earth-dark text-stone-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Logo */}
+        {/* Logo — no icon */}
         <div className="mb-8">
-          <Link href="/" className="flex items-center gap-2.5">
-            <svg width="34" height="34" viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="18" fill="#475569" />
-              <circle cx="18" cy="18" r="14" fill="#1e293b" />
-              <text x="18" y="24" textAnchor="middle" fontFamily="Inter" fontSize="16" fontWeight="700" fill="#fff">&#x271D;</text>
-            </svg>
+          <Link href="/" className="flex items-center">
             <span className="text-[22px] font-extrabold tracking-tight text-white">
-              grafkosten<span className="text-slate-400">kenner</span><span className="text-slate-500">.nl</span>
+              begraafplaats<span className="text-green-300">kosten</span><span className="text-stone-500">.nl</span>
             </span>
           </Link>
           <p className="text-stone-500 text-sm mt-3 max-w-md">
@@ -90,7 +85,7 @@ export default function Footer() {
           {trustBadges.map((badge) => (
             <div
               key={badge.label}
-              className="flex items-center gap-2 bg-stone-800 rounded-full px-3 py-1"
+              className="flex items-center gap-2 bg-earth-mid rounded-full px-3 py-1"
             >
               <badge.icon size={12} className="text-stone-400" />
               <span className="text-xs text-stone-400">{badge.label}</span>
@@ -99,9 +94,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-stone-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-earth-mid pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-stone-500">
-            &copy; {new Date().getFullYear()} Grafkostenkenner.nl — Alle rechten voorbehouden
+            &copy; {new Date().getFullYear()} Begraafplaatskosten.nl — Alle rechten voorbehouden
           </p>
           <div className="flex gap-4">
             <Link href="/privacy" className="text-xs text-stone-500 hover:text-stone-300">Privacy</Link>

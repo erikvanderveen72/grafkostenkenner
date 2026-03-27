@@ -16,7 +16,7 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      item: `https://grafkostenkenner.nl${item.href}`,
+      item: `https://begraafplaatskosten.nl${item.href}`,
     })),
   };
 

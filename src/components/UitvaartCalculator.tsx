@@ -82,7 +82,7 @@ export default function UitvaartCalculator() {
   return (
     <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
       {/* Header */}
-      <div className="bg-gradient-to-r from-stone-900 to-stone-800 p-6">
+      <div className="bg-gradient-to-r from-earth-dark to-earth-mid p-6">
         <div className="flex items-center gap-3">
           <Calculator size={24} className="text-white" />
           <div>

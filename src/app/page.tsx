@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   MapPin,
   Shield,
@@ -24,8 +25,8 @@ const soorten = [
     title: 'Gemeentelijk',
     description: 'Openbare begraafplaatsen beheerd door de gemeente, toegankelijk voor iedereen',
     icon: Landmark,
-    color: 'from-slate-50 to-slate-100',
-    textColor: 'text-slate-700',
+    color: 'from-stone-50 to-stone-100',
+    textColor: 'text-stone-700',
   },
   {
     title: 'Kerkelijk',
@@ -38,8 +39,8 @@ const soorten = [
     title: 'Natuur',
     description: 'Duurzame begraafplaatsen in de natuur, vaak met eeuwige grafrust',
     icon: Trees,
-    color: 'from-emerald-50 to-emerald-100',
-    textColor: 'text-emerald-700',
+    color: 'from-green-50 to-green-100',
+    textColor: 'text-green-700',
   },
   {
     title: 'Islamitisch & Joods',
@@ -103,45 +104,64 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <div className="relative overflow-hidden bg-stone-950">
-        <div className="absolute top-0 -left-4 w-96 h-96 bg-slate-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob" />
-        <div className="absolute top-0 -right-4 w-96 h-96 bg-stone-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-emerald-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000" />
+      <div className="relative overflow-hidden bg-earth-dark">
+        <div className="absolute top-0 -left-4 w-96 h-96 bg-green-800 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob" />
+        <div className="absolute top-0 -right-4 w-96 h-96 bg-amber-800 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-green-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000" />
         <div className="absolute inset-0 plus-pattern opacity-40" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-8">
-            <div className="w-2 h-2 bg-emerald-400 rounded-full" />
-            <span className="text-stone-300 text-sm font-medium">Tarieven 2026</span>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-8">
+                <div className="w-2 h-2 bg-green-400 rounded-full" />
+                <span className="text-stone-300 text-sm font-medium">Tarieven 2026</span>
+              </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-7xl font-extrabold text-white leading-tight mb-4">
-            Grafkosten
-          </h1>
-          <p className="text-2xl sm:text-3xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-400 bg-clip-text text-transparent mb-6">
-            vergelijken in Nederland
-          </p>
-          <p className="text-stone-400 text-lg sm:text-xl max-w-2xl mb-10">
-            Vergelijk grafrechten per gemeente en begraafplaats.
-            Ontdek de kosten, looptijden en voorwaarden — transparant en onafhankelijk.
-          </p>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+                Begraafplaats&shy;kosten
+              </h1>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-300 via-emerald-200 to-amber-300 bg-clip-text text-transparent mb-6">
+                vergelijken in Nederland
+              </p>
+              <p className="text-stone-400 text-lg sm:text-xl max-w-xl mb-10">
+                Vergelijk grafrechten per gemeente en begraafplaats.
+                Ontdek de kosten, looptijden en voorwaarden — transparant en onafhankelijk.
+              </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="#provincies"
-              className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"
-            >
-              <Search size={20} />
-              Vergelijk grafkosten
-            </Link>
-            <Link
-              href="#provincies"
-              className="inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur border border-white/15 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/10 transition-all"
-            >
-              Bekijk alle provincies
-            </Link>
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="#provincies"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-earth-dark px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"
+                >
+                  <Search size={20} />
+                  Vergelijk grafkosten
+                </Link>
+                <Link
+                  href="#provincies"
+                  className="inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur border border-white/15 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/10 transition-all"
+                >
+                  Bekijk alle provincies
+                </Link>
+              </div>
+            </div>
+
+            {/* Hero image */}
+            <div className="hidden lg:block relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                <Image
+                  src="/images/hero-duinen.jpg"
+                  alt="Ouder echtpaar hand in hand bij de duinen"
+                  width={640}
+                  height={480}
+                  className="w-full h-auto object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-earth-dark/50 to-transparent" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -183,20 +203,20 @@ export default function HomePage() {
           {soorten.map((soort) => (
             <div
               key={soort.title}
-              className="bg-white border border-stone-200 rounded-2xl p-6 hover:shadow-lg hover:border-primary transition-all group"
+              className="bg-white border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary transition-all group"
             >
               <div className={`p-3 bg-gradient-to-br ${soort.color} rounded-xl w-fit mb-4`}>
                 <soort.icon size={24} className={soort.textColor} />
               </div>
-              <h3 className="text-xl font-bold text-stone-900 mb-2">{soort.title}</h3>
-              <p className="text-stone-600 text-sm">{soort.description}</p>
+              <h3 className="text-xl font-bold text-text-main mb-2">{soort.title}</h3>
+              <p className="text-text-muted text-sm">{soort.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Uitvaartkosten inzicht */}
-      <section className="bg-gradient-to-br from-stone-900 to-stone-800 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-earth-dark to-earth-mid py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -213,7 +233,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/uitvaartkosten"
-                className="inline-flex items-center gap-2 bg-white text-stone-900 px-6 py-3 rounded-xl font-semibold hover:shadow-xl transition-all"
+                className="inline-flex items-center gap-2 bg-white text-earth-dark px-6 py-3 rounded-xl font-semibold hover:shadow-xl transition-all"
               >
                 Bekijk het kostenoverzicht
                 <ArrowRight size={18} />
@@ -221,7 +241,7 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { waarde: '€8.000–€12.000', label: 'Gemiddelde uitvaart', kleur: 'bg-emerald-500/20 text-emerald-300' },
+                { waarde: '€8.000–€12.000', label: 'Gemiddelde uitvaart', kleur: 'bg-green-500/20 text-green-300' },
                 { waarde: '> 700%', label: 'Prijsvariatie grafrechten', kleur: 'bg-amber-500/20 text-amber-300' },
                 { waarde: '40%', label: 'Onderschat de kosten', kleur: 'bg-rose-500/20 text-rose-300' },
                 { waarde: '€861–€8.895', label: 'Spreiding particulier graf', kleur: 'bg-blue-500/20 text-blue-300' },
@@ -237,7 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* Provincies */}
-      <section id="provincies" className="bg-stone-50 py-16 md:py-24">
+      <section id="provincies" className="bg-earth-light py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-text-main mb-4">Vergelijk per provincie</h2>
@@ -252,13 +272,13 @@ export default function HomePage() {
                 {prov.beschikbaar ? (
                   <Link
                     href={`/provincie/${prov.slug}`}
-                    className="block bg-white border border-stone-200 rounded-xl p-4 hover:shadow-lg hover:border-primary transition-all group text-center"
+                    className="block bg-white border border-border rounded-xl p-4 hover:shadow-lg hover:border-primary transition-all group text-center"
                   >
                     <MapPin size={20} className="text-primary mx-auto mb-2" />
-                    <h3 className="font-semibold text-stone-900 group-hover:text-primary transition-colors">
+                    <h3 className="font-semibold text-text-main group-hover:text-primary transition-colors">
                       {prov.naam}
                     </h3>
-                    <p className="text-xs text-stone-500 mt-1">
+                    <p className="text-xs text-text-muted mt-1">
                       {prov.aantalBegraafplaatsen} gemeente{prov.aantalBegraafplaatsen !== 1 ? 'n' : ''}
                     </p>
                     <ArrowRight
@@ -267,10 +287,10 @@ export default function HomePage() {
                     />
                   </Link>
                 ) : (
-                  <div className="bg-stone-100 border border-stone-200 rounded-xl p-4 text-center opacity-60">
-                    <MapPin size={20} className="text-stone-400 mx-auto mb-2" />
-                    <h3 className="font-semibold text-stone-500">{prov.naam}</h3>
-                    <p className="text-xs text-stone-400 mt-1">Binnenkort</p>
+                  <div className="bg-surface-alt border border-border rounded-xl p-4 text-center opacity-60">
+                    <MapPin size={20} className="text-text-muted mx-auto mb-2" />
+                    <h3 className="font-semibold text-text-muted">{prov.naam}</h3>
+                    <p className="text-xs text-text-muted mt-1">Binnenkort</p>
                   </div>
                 )}
               </div>
@@ -300,7 +320,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-stone-50 py-8">
+      <section className="bg-earth-light py-8">
         <FAQSchema items={faqItems} />
       </section>
 

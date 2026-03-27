@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { provincies, gemeenten } from '@/lib/fallback-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://grafkostenkenner.nl';
+  const baseUrl = 'https://begraafplaatskosten.nl';
   const lastModified = new Date();
 
   const provinciePages: MetadataRoute.Sitemap = provincies
