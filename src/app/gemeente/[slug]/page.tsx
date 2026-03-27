@@ -248,18 +248,26 @@ export default async function GemeentePage({
           })}
         </div>
 
-        {/* Onderhoud */}
-        {bp.onderhoud.type !== 'niet_beschikbaar' && bp.onderhoud.perJaar && (
+        {/* Onderhoudscontract */}
+        {bp.onderhoud.type !== 'niet_beschikbaar' && (
           <div className="mt-10 bg-stone-50 rounded-2xl p-6 border border-border">
             <h3 className="text-lg font-semibold text-text-main mb-2 flex items-center gap-2">
               <Info size={20} className="text-primary" />
-              Onderhoudskosten
+              Onderhoudscontract
             </h3>
-            <p className="text-text-muted">
-              Onderhoud is <span className="font-medium">{bp.onderhoud.type === 'verplicht' ? 'verplicht' : 'optioneel'}</span> bij
-              de gemeente {info.naam}. De kosten bedragen{' '}
-              <span className="font-medium text-text-main">{formatCurrency(bp.onderhoud.perJaar)} per jaar</span>.
+            <p className={`inline-block text-sm font-medium px-3 py-1 rounded-full mb-3 ${
+              bp.onderhoud.type === 'verplicht'
+                ? 'bg-rose-100 text-rose-700'
+                : 'bg-emerald-100 text-emerald-700'
+            }`}>
+              {bp.onderhoud.type === 'verplicht' ? 'Verplicht' : 'Niet verplicht'}
             </p>
+            {bp.onderhoud.perJaar && (
+              <p className="text-text-muted">
+                De kosten voor het onderhoudscontract bedragen{' '}
+                <span className="font-medium text-text-main">{formatCurrency(bp.onderhoud.perJaar)} per jaar</span>.
+              </p>
+            )}
           </div>
         )}
 
