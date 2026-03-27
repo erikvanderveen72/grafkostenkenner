@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { MapPin, Filter, ArrowUpDown, Info, ChevronDown, ChevronUp, BarChart3 } from 'lucide-react';
 import {
   type Begraafplaats,
@@ -38,25 +38,36 @@ export default function GrafkostenVergelijker({
 }: GrafkostenVergelijkerProps) {
   const beschikbareGrafTypes = useMemo(() => getUniekeGrafTypes(begraafplaatsen), [begraafplaatsen]);
   const [grafType, setGrafType] = useState<GrafType>(beschikbareGrafTypes[0] || 'enkel');
-  const beschikbareLooptijden = useMemo(
-    () => getUniekeLooptijden(begraafplaatsen, grafType),
-    [begraafplaatsen, grafType],
+  const [filterGemeente, setFilterGemeente] = useState<string>('alle');
+
+  // Filter begraafplaatsen op gemeente
+  const gefilterdeBps = useMemo(
+    () => filterGemeente === 'alle' ? begraafplaatsen : begraafplaatsen.filter((bp) => bp.gemeente === filterGemeente),
+    [begraafplaatsen, filterGemeente],
   );
+
+  // Looptijden op basis van gefilterde begraafplaatsen (niet alle)
+  const beschikbareLooptijden = useMemo(
+    () => getUniekeLooptijden(gefilterdeBps, grafType),
+    [gefilterdeBps, grafType],
+  );
+
   const [looptijd, setLooptijd] = useState(() => beschikbareLooptijden.find((l) => l === 30) || beschikbareLooptijden[0] || 20);
   const [inclusiefOnderhoud, setInclusiefOnderhoud] = useState(true);
   const [sortKey, setSortKey] = useState<SortKey>('totaal');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [showChart, setShowChart] = useState(true);
-  const [filterGemeente, setFilterGemeente] = useState<string>('alle');
 
-  // Reset looptijd als grafType wijzigt
+  // Reset looptijd als grafType of gemeente wijzigt
+  useEffect(() => {
+    if (!beschikbareLooptijden.includes(looptijd)) {
+      setLooptijd(beschikbareLooptijden.find((l) => l === 30) || beschikbareLooptijden[0] || 20);
+    }
+  }, [beschikbareLooptijden, looptijd]);
+
   const handleGrafTypeChange = (newType: GrafType) => {
     setGrafType(newType);
-    const newLooptijden = getUniekeLooptijden(begraafplaatsen, newType);
-    if (!newLooptijden.includes(looptijd)) {
-      setLooptijd(newLooptijden.find((l) => l === 30) || newLooptijden[0] || 20);
-    }
   };
 
   // Unieke gemeenten
@@ -67,8 +78,7 @@ export default function GrafkostenVergelijker({
 
   // Filter en bereken
   const resultaten = useMemo(() => {
-    return begraafplaatsen
-      .filter((bp) => filterGemeente === 'alle' || bp.gemeente === filterGemeente)
+    return gefilterdeBps
       .map((bp) => ({
         begraafplaats: bp,
         kosten: berekenTotaalKosten(bp, grafType, looptijd, inclusiefOnderhoud),
@@ -83,7 +93,7 @@ export default function GrafkostenVergelijker({
         const valB = b.kosten[sortKey as keyof typeof b.kosten] as number;
         return sortDir === 'asc' ? valA - valB : valB - valA;
       });
-  }, [begraafplaatsen, grafType, looptijd, inclusiefOnderhoud, sortKey, sortDir, filterGemeente]);
+  }, [gefilterdeBps, grafType, looptijd, inclusiefOnderhoud, sortKey, sortDir]);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
@@ -92,6 +102,12 @@ export default function GrafkostenVergelijker({
 
   const goedkoopste = resultaten.length > 0 ? resultaten[0] : null;
   const maxTotaal = Math.max(...resultaten.map((r) => r.kosten.totaal), 1);
+
+  // Korte naam voor grafiek: gebruik gemeente + type
+  function korteNaam(bp: Begraafplaats): string {
+    const type = bp.typeLabel.replace('Gemeentelijke begraafplaats', 'Gem.').replace('Algemene begraafplaats', 'Alg.');
+    return `${bp.gemeente} — ${type}`;
+  }
 
   return (
     <div className="space-y-8">
@@ -117,24 +133,30 @@ export default function GrafkostenVergelijker({
             </select>
           </div>
 
-          {/* Looptijd */}
+          {/* Looptijd — dynamisch op basis van gekozen gemeente */}
           <div>
-            <label className="block text-sm font-medium text-text-muted mb-2">Looptijd</label>
-            <div className="flex flex-wrap gap-2">
-              {beschikbareLooptijden.map((jaren) => (
-                <button
-                  key={jaren}
-                  onClick={() => setLooptijd(jaren)}
-                  className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                    looptijd === jaren
-                      ? 'bg-primary text-white shadow-md'
-                      : 'bg-surface border border-border text-text-muted hover:border-primary'
-                  }`}
-                >
-                  {looptijdLabel(jaren)}
-                </button>
-              ))}
-            </div>
+            <label className="block text-sm font-medium text-text-muted mb-2">
+              {grafType === 'kindergraf' ? 'Periode' : 'Looptijd'}
+            </label>
+            {beschikbareLooptijden.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {beschikbareLooptijden.map((jaren) => (
+                  <button
+                    key={jaren}
+                    onClick={() => setLooptijd(jaren)}
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+                      looptijd === jaren
+                        ? 'bg-primary text-white shadow-md'
+                        : 'bg-surface border border-border text-text-muted hover:border-primary'
+                    }`}
+                  >
+                    {looptijdLabel(jaren)}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-text-muted py-2">Geen looptijden beschikbaar</p>
+            )}
           </div>
 
           {/* Gemeente filter */}
@@ -190,10 +212,10 @@ export default function GrafkostenVergelijker({
                 <div>
                   <p className="text-sm font-medium text-accent">Voordeligste optie</p>
                   <p className="text-lg font-bold text-text-main">
-                    {goedkoopste.begraafplaats.naam} — {formatCurrency(goedkoopste.kosten.totaal)}
+                    {goedkoopste.begraafplaats.gemeente} — {formatCurrency(goedkoopste.kosten.totaal)}
                   </p>
                   <p className="text-sm text-text-muted">
-                    {goedkoopste.begraafplaats.typeLabel} in {goedkoopste.begraafplaats.plaats} •{' '}
+                    {goedkoopste.begraafplaats.naam} • {goedkoopste.begraafplaats.typeLabel} •{' '}
                     {looptijd === 99 ? 'eeuwig grafrecht' : `${formatCurrency(goedkoopste.kosten.perJaar)} per jaar`}
                   </p>
                 </div>
@@ -224,16 +246,16 @@ export default function GrafkostenVergelijker({
                 {resultaten.map((r, idx) => {
                   const pct = (r.kosten.totaal / maxTotaal) * 100;
                   return (
-                    <div key={r.begraafplaats.id} className="flex items-center gap-4">
-                      <div className="w-40 sm:w-56 text-sm text-text-main font-medium truncate shrink-0">
-                        {r.begraafplaats.naam}
+                    <div key={r.begraafplaats.id} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                      <div className="text-sm text-text-main font-medium sm:w-48 md:w-64 sm:shrink-0 truncate">
+                        {korteNaam(r.begraafplaats)}
                       </div>
                       <div className="flex-1 bg-surface rounded-full h-8 overflow-hidden">
                         <div
                           className={`h-full rounded-full flex items-center px-3 transition-all duration-500 ${
                             idx === 0 ? 'bg-accent' : 'bg-primary'
                           }`}
-                          style={{ width: `${Math.max(pct, 8)}%` }}
+                          style={{ width: `${Math.max(pct, 12)}%` }}
                         >
                           <span className="text-white text-xs font-bold whitespace-nowrap">
                             {formatCurrency(r.kosten.totaal)}
@@ -280,10 +302,10 @@ export default function GrafkostenVergelijker({
                       className={`border-b border-border hover:bg-surface transition ${idx === 0 ? 'bg-accent/5' : ''}`}
                     >
                       <td className="px-6 py-4">
-                        <div className="font-medium text-text-main">{r.begraafplaats.naam}</div>
+                        <div className="font-medium text-text-main">{r.begraafplaats.gemeente}</div>
                         <div className="text-xs text-text-muted flex items-center gap-1 mt-0.5">
                           <MapPin size={12} />
-                          {r.begraafplaats.plaats} ({r.begraafplaats.gemeente}) • {r.begraafplaats.typeLabel}
+                          {r.begraafplaats.naam} • {r.begraafplaats.typeLabel}
                         </div>
                       </td>
                       <td className="px-6 py-4 font-medium text-text-main">{formatCurrency(r.kosten.grafrechten)}</td>
@@ -349,14 +371,14 @@ export default function GrafkostenVergelijker({
               <div key={r.begraafplaats.id} className={`bg-white border rounded-2xl overflow-hidden shadow-sm ${idx === 0 ? 'border-accent' : 'border-border'}`}>
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h4 className="font-semibold text-text-main">{r.begraafplaats.naam}</h4>
+                    <div className="min-w-0 flex-1 mr-2">
+                      <h4 className="font-semibold text-text-main">{r.begraafplaats.gemeente}</h4>
                       <p className="text-xs text-text-muted flex items-center gap-1 mt-0.5">
-                        <MapPin size={12} />
-                        {r.begraafplaats.plaats} ({r.begraafplaats.gemeente}) • {r.begraafplaats.typeLabel}
+                        <MapPin size={12} className="shrink-0" />
+                        <span className="truncate">{r.begraafplaats.naam} • {r.begraafplaats.typeLabel}</span>
                       </p>
                     </div>
-                    {idx === 0 && <span className="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">Voordeligst</span>}
+                    {idx === 0 && <span className="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full shrink-0">Voordeligst</span>}
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-surface rounded-lg p-3">
