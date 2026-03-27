@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { provincies } from '@/lib/fallback-data';
+import { provincies, gemeenten } from '@/lib/fallback-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://grafkostenkenner.nl';
@@ -14,6 +14,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     }));
 
+  const gemeentePages: MetadataRoute.Sitemap = gemeenten.map((g) => ({
+    url: `${baseUrl}/gemeente/${g.slug}`,
+    lastModified,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   return [
     {
       url: `${baseUrl}/`,
@@ -22,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     ...provinciePages,
+    ...gemeentePages,
     {
       url: `${baseUrl}/uitvaartkosten`,
       lastModified,

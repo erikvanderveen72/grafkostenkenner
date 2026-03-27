@@ -5509,3 +5509,36 @@ export function getUniekeGrafTypes(begraafplaatsen: Begraafplaats[]): GrafType[]
   });
   return Array.from(types);
 }
+
+// --- Gemeente helpers ---
+
+export function slugifyGemeente(naam: string): string {
+  return naam
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
+export interface GemeenteInfo {
+  naam: string;
+  slug: string;
+  provincie: string;
+  provincieSlug: string;
+  begraafplaats: Begraafplaats;
+}
+
+export const gemeenten: GemeenteInfo[] = alleBegraafplaatsen.map((bp) => ({
+  naam: bp.gemeente,
+  slug: slugifyGemeente(bp.gemeente),
+  provincie: bp.provincie,
+  provincieSlug: provincies.find((p) => p.naam === bp.provincie)?.slug || '',
+  begraafplaats: bp,
+}));
+
+export const gemeenteBySlug: Record<string, GemeenteInfo> = Object.fromEntries(
+  gemeenten.map((g) => [g.slug, g])
+);

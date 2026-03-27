@@ -6,10 +6,12 @@ import GrafkostenVergelijker from '@/components/GrafkostenVergelijker';
 import {
   provincies,
   begraafplaatsenPerProvincie,
+  gemeenten as alleGemeenten,
   formatCurrency,
   Begraafplaats,
 } from '@/lib/fallback-data';
-import { MapPin, TrendingDown, Clock, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { MapPin, TrendingDown, Clock, Shield, ArrowRight } from 'lucide-react';
 
 // Statically generate all province pages
 export function generateStaticParams() {
@@ -193,6 +195,44 @@ export default async function ProvinciePage({
         </div>
 
         <GrafkostenVergelijker begraafplaatsen={begraafplaatsen} provincie={provincie.naam} />
+      </section>
+
+      {/* Gemeenten in deze provincie */}
+      <section className="bg-white py-16 md:py-24 border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-text-main mb-2">
+            Gemeenten in {provincie.naam}
+          </h2>
+          <p className="text-text-muted mb-8">
+            Klik op een gemeente voor alle tarieven en details.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            {alleGemeenten
+              .filter((g) => g.provincieSlug === slug)
+              .sort((a, b) => a.naam.localeCompare(b.naam))
+              .map((g) => {
+                const min = Math.min(...g.begraafplaats.grafTarieven.map((t) => t.tarief));
+                return (
+                  <Link
+                    key={g.slug}
+                    href={`/gemeente/${g.slug}`}
+                    className="bg-stone-50 border border-border rounded-xl p-4 hover:shadow-md hover:border-primary transition-all group"
+                  >
+                    <p className="font-medium text-text-main group-hover:text-primary transition-colors text-sm">
+                      {g.naam}
+                    </p>
+                    <p className="text-xs text-text-muted mt-1">
+                      vanaf {formatCurrency(min)}
+                    </p>
+                    <ArrowRight
+                      size={14}
+                      className="text-primary mt-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    />
+                  </Link>
+                );
+              })}
+          </div>
+        </div>
       </section>
 
       {/* Toelichting */}
