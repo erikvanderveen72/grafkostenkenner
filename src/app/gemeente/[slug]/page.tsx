@@ -29,7 +29,9 @@ const grafTypeLabels: Record<string, string> = {
 function getGemeenteStats(bp: Begraafplaats) {
   const enkelTarieven = bp.grafTarieven.filter((t) => t.grafType === 'enkel').map((t) => t.tarief);
   const alleTarieven = bp.grafTarieven.map((t) => t.tarief);
-  const looptijden = [...new Set(bp.grafTarieven.map((t) => t.looptijd))].sort((a, b) => a - b);
+  // Looptijden alleen voor reguliere graven (niet kindergraven — die hebben leeftijdsgerelateerde periodes)
+  const reguliereTarieven = bp.grafTarieven.filter((t) => t.grafType !== 'kindergraf');
+  const looptijden = [...new Set(reguliereTarieven.map((t) => t.looptijd))].sort((a, b) => a - b);
   const grafTypes = [...new Set(bp.grafTarieven.map((t) => t.grafType))];
 
   return {
@@ -116,10 +118,12 @@ export default async function GemeentePage({
       question: `Welke graftypen zijn beschikbaar in ${info.naam}?`,
       answer: `In ${info.naam} kunt u kiezen uit ${stats.grafTypes.length} graftypen: ${stats.grafTypes.map((t) => grafTypeLabels[t] || t).join(', ')}. Elk type heeft eigen tarieven en looptijden.`,
     },
-    {
-      question: `Voor welke looptijden kan ik grafrechten krijgen in ${info.naam}?`,
-      answer: `De gemeente ${info.naam} biedt grafrechten aan voor de volgende looptijden: ${stats.looptijden.join(', ')} jaar. Bij de meeste begraafplaatsen kunt u de grafrechten na afloop verlengen.`,
-    },
+    ...(stats.looptijden.length > 0
+      ? [{
+          question: `Voor welke looptijden kan ik grafrechten krijgen in ${info.naam}?`,
+          answer: `De gemeente ${info.naam} biedt grafrechten aan voor de volgende looptijden: ${stats.looptijden.join(', ')} jaar. Bij de meeste begraafplaatsen kunt u de grafrechten na afloop verlengen.`,
+        }]
+      : []),
     {
       question: `Waar komen de tarieven van ${info.naam} vandaan?`,
       answer: `De tarieven komen uit de officiële Verordening lijkbezorgingsrechten van de gemeente ${info.naam}, gepubliceerd in de Centrale Voorziening Decentrale Regelgeving (CVDR). We controleren deze regelmatig op actualiteit.`,
@@ -169,9 +173,13 @@ export default async function GemeentePage({
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-main">
-                  {stats.looptijden[0]}-{stats.looptijden[stats.looptijden.length - 1]} jaar
+                  {stats.looptijden.length > 0
+                    ? `${stats.looptijden[0]}-${stats.looptijden[stats.looptijden.length - 1]} jaar`
+                    : `${stats.grafTypes.length} typen`}
                 </p>
-                <p className="text-sm text-text-muted">looptijden</p>
+                <p className="text-sm text-text-muted">
+                  {stats.looptijden.length > 0 ? 'looptijden' : 'graftypen'}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -210,36 +218,48 @@ export default async function GemeentePage({
                 <div className="bg-white rounded-2xl border border-border overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-stone-50 border-b border-border">
-                        <th className="px-6 py-3 text-left font-semibold text-text-main">Looptijd</th>
+                      <tr className="bg-surface-alt border-b border-border">
+                        <th className="px-6 py-3 text-left font-semibold text-text-main">
+                          {type === 'kindergraf' ? 'Leeftijdscategorie' : 'Looptijd'}
+                        </th>
                         <th className="px-6 py-3 text-right font-semibold text-text-main">Tarief</th>
-                        <th className="px-6 py-3 text-right font-semibold text-text-main">Per jaar</th>
+                        <th className="px-6 py-3 text-right font-semibold text-text-main">
+                          {type === 'kindergraf' ? '' : 'Per jaar'}
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {tarieven.map((t, i) => (
-                        <tr
-                          key={i}
-                          className={`border-b border-border last:border-0 hover:bg-surface transition ${
-                            i === 0 ? 'bg-accent/5' : ''
-                          }`}
-                        >
-                          <td className="px-6 py-3 font-medium text-text-main">
-                            {t.looptijd} jaar
-                            {i === 0 && (
-                              <span className="ml-2 text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full font-medium">
-                                Voordeligst
-                              </span>
-                            )}
-                          </td>
-                          <td className="px-6 py-3 text-right font-semibold text-text-main">
-                            {formatCurrency(t.tarief)}
-                          </td>
-                          <td className="px-6 py-3 text-right text-text-muted">
-                            {formatCurrency(Math.round(t.tarief / t.looptijd))}/jaar
-                          </td>
-                        </tr>
-                      ))}
+                      {tarieven.map((t, i) => {
+                        const isKindergraf = type === 'kindergraf';
+                        const looptijdLabel = isKindergraf
+                          ? t.looptijd <= 1
+                            ? 'Jonger dan 1 jaar'
+                            : `Tot ${t.looptijd} jaar`
+                          : `${t.looptijd} jaar`;
+                        return (
+                          <tr
+                            key={i}
+                            className={`border-b border-border last:border-0 hover:bg-surface transition ${
+                              i === 0 && !isKindergraf ? 'bg-accent/5' : ''
+                            }`}
+                          >
+                            <td className="px-6 py-3 font-medium text-text-main">
+                              {looptijdLabel}
+                              {i === 0 && !isKindergraf && (
+                                <span className="ml-2 text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full font-medium">
+                                  Voordeligst
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-6 py-3 text-right font-semibold text-text-main">
+                              {formatCurrency(t.tarief)}
+                            </td>
+                            <td className="px-6 py-3 text-right text-text-muted">
+                              {isKindergraf ? '—' : `${formatCurrency(Math.round(t.tarief / t.looptijd))}/jaar`}
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -292,7 +312,9 @@ export default async function GemeentePage({
               <h3 className="text-lg font-semibold text-text-main mb-4">Grafrechten kiezen</h3>
               <p className="text-text-muted mb-4">
                 Bij het kiezen van grafrechten in {info.naam} zijn er {stats.grafTypes.length} typen beschikbaar
-                met looptijden van {stats.looptijden[0]} tot {stats.looptijden[stats.looptijden.length - 1]} jaar.
+                {stats.looptijden.length > 0
+                  ? ` met looptijden van ${stats.looptijden[0]} tot ${stats.looptijden[stats.looptijden.length - 1]} jaar`
+                  : ''}.
                 Een langere looptijd is per jaar vaak voordeliger, maar vraagt een hogere eenmalige investering.
               </p>
               <div className="bg-primary-light rounded-xl p-4">
