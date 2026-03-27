@@ -49,9 +49,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Logo — no icon */}
         <div className="mb-8">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex flex-col">
             <span className="text-[22px] font-extrabold tracking-tight text-white">
               begraafplaats<span className="text-green-300">kosten</span><span className="text-stone-500">.nl</span>
+            </span>
+            <span className="text-[11px] tracking-[0.2em] uppercase font-medium text-stone-500">
+              geeft rust
             </span>
           </Link>
           <p className="text-stone-500 text-sm mt-3 max-w-md">

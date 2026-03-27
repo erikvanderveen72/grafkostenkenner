@@ -103,64 +103,59 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <div className="relative overflow-hidden bg-earth-dark">
-        <div className="absolute top-0 -left-4 w-96 h-96 bg-green-800 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob" />
-        <div className="absolute top-0 -right-4 w-96 h-96 bg-amber-800 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-green-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000" />
-        <div className="absolute inset-0 plus-pattern opacity-40" />
+      {/* Hero — full-width foto */}
+      <div className="relative overflow-hidden min-h-[60vh] md:min-h-[70vh]">
+        {/* Background image */}
+        <Image
+          src="/images/hero-foto.png"
+          alt="Panoramisch uitzicht over de Nederlandse duinen bij zonsondergang"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-8">
-                <div className="w-2 h-2 bg-green-400 rounded-full" />
-                <span className="text-stone-300 text-sm font-medium">Tarieven 2026</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
-                Begraafplaats&shy;kosten
-              </h1>
-              <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-300 via-emerald-200 to-amber-300 bg-clip-text text-transparent mb-6">
-                vergelijken in Nederland
-              </p>
-              <p className="text-stone-400 text-lg sm:text-xl max-w-xl mb-10">
-                Vergelijk grafrechten per gemeente en begraafplaats.
-                Ontdek de kosten, looptijden en voorwaarden — transparant en onafhankelijk.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="#provincies"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-earth-dark px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"
-                >
-                  <Search size={20} />
-                  Vergelijk grafkosten
-                </Link>
-                <Link
-                  href="#provincies"
-                  className="inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur border border-white/15 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/10 transition-all"
-                >
-                  Bekijk alle provincies
-                </Link>
-              </div>
+        {/* Content — centered with frosted effect */}
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-[60vh] md:min-h-[70vh] px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-3xl">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-8">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <span className="text-white/90 text-sm font-medium">Tarieven 2026</span>
             </div>
 
-            {/* Hero image */}
-            <div className="hidden lg:block relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-                <Image
-                  src="/images/hero-duinen.png"
-                  alt="Ouder echtpaar hand in hand bij de duinen"
-                  width={640}
-                  height={480}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-earth-dark/50 to-transparent" />
-              </div>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif font-light text-white leading-tight mb-3 drop-shadow-lg">
+              Begraafplaats&shy;kosten
+            </h1>
+            <p className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-white/80 mb-6 drop-shadow-md">
+              vergelijken in Nederland
+            </p>
+
+            {/* Frosted subtitle */}
+            <div className="inline-block bg-white/10 backdrop-blur-lg rounded-2xl px-6 py-4 mb-10 border border-white/10">
+              <p className="text-white/90 text-base sm:text-lg max-w-xl">
+                Vergelijk grafrechten per gemeente en begraafplaats.
+                Transparant, onafhankelijk en gratis.
+              </p>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="#provincies"
+                className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-8 py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl"
+              >
+                <Search size={20} />
+                Vergelijk grafkosten
+              </Link>
+              <Link
+                href="#provincies"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/20 transition-all"
+              >
+                Bekijk alle provincies
+              </Link>
             </div>
           </div>
         </div>

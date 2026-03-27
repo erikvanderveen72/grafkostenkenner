@@ -10,7 +10,8 @@ import {
   GrafType,
   Begraafplaats,
 } from '@/lib/fallback-data';
-import { MapPin, TrendingDown, Clock, Shield, ArrowRight, FileText, Info } from 'lucide-react';
+import { begraafplaatsLocaties } from '@/lib/begraafplaats-locaties';
+import { MapPin, TrendingDown, Clock, Shield, ArrowRight, FileText, Info, Landmark } from 'lucide-react';
 
 // Statically generate all 153 gemeente pages
 export function generateStaticParams() {
@@ -200,15 +201,28 @@ export default async function GemeentePage({
         <h2 className="text-3xl font-bold text-text-main mb-2">
           Alle tarieven grafrechten {info.naam}
         </h2>
-        <p className="text-text-muted mb-10 max-w-3xl">
+        <p className="text-text-muted mb-4 max-w-3xl">
           Onderstaande tarieven zijn afkomstig uit de{' '}
           <span className="font-medium text-text-main">{bp.bronVermelding}</span>. Alle bedragen zijn in euro&apos;s.
         </p>
+        {bp.onderhoud.type !== 'niet_beschikbaar' && bp.onderhoud.perJaar && (
+          <div className="inline-flex items-center gap-2 bg-primary-light border border-primary/20 rounded-xl px-4 py-2 mb-10 text-sm">
+            <Info size={16} className="text-primary shrink-0" />
+            <span className="text-text-main">
+              Onderhoud: <span className="font-medium">{formatCurrency(bp.onderhoud.perJaar)}/jaar</span>
+              {bp.onderhoud.type === 'optioneel' ? ' (optioneel)' : ' (verplicht)'}
+              {' — '}inclusief onderhoud is hieronder berekend.
+            </span>
+          </div>
+        )}
 
         <div className="space-y-10">
           {sortedTypes.map((type) => {
             const tarieven = tarievenPerType[type];
             const label = grafTypeLabels[type] || type;
+            const isKindergraf = type === 'kindergraf';
+            const heeftOnderhoud = bp.onderhoud.type !== 'niet_beschikbaar' && bp.onderhoud.perJaar && bp.onderhoud.perJaar > 0 && !isKindergraf;
+
             return (
               <div key={type}>
                 <h3 className="text-xl font-semibold text-text-main mb-4 flex items-center gap-2">
@@ -219,23 +233,32 @@ export default async function GemeentePage({
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-surface-alt border-b border-border">
-                        <th className="px-6 py-3 text-left font-semibold text-text-main">
-                          {type === 'kindergraf' ? 'Leeftijdscategorie' : 'Looptijd'}
+                        <th className="px-4 sm:px-6 py-3 text-left font-semibold text-text-main">
+                          {isKindergraf ? 'Leeftijdscategorie' : 'Looptijd'}
                         </th>
-                        <th className="px-6 py-3 text-right font-semibold text-text-main">Tarief</th>
-                        <th className="px-6 py-3 text-right font-semibold text-text-main">
-                          {type === 'kindergraf' ? '' : 'Per jaar'}
+                        <th className="px-4 sm:px-6 py-3 text-right font-semibold text-text-main">
+                          {heeftOnderhoud ? 'Excl. onderhoud' : 'Tarief'}
+                        </th>
+                        {heeftOnderhoud && (
+                          <th className="px-4 sm:px-6 py-3 text-right font-semibold text-primary">
+                            Incl. onderhoud
+                          </th>
+                        )}
+                        <th className="px-4 sm:px-6 py-3 text-right font-semibold text-text-main">
+                          {isKindergraf ? '' : 'Per jaar'}
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       {tarieven.map((t, i) => {
-                        const isKindergraf = type === 'kindergraf';
                         const looptijdLabel = isKindergraf
                           ? t.looptijd <= 1
                             ? 'Jonger dan 1 jaar'
                             : `Tot ${t.looptijd} jaar`
                           : `${t.looptijd} jaar`;
+                        const inclOnderhoud = heeftOnderhoud
+                          ? t.tarief + bp.onderhoud.perJaar! * t.looptijd
+                          : t.tarief;
                         return (
                           <tr
                             key={i}
@@ -243,7 +266,7 @@ export default async function GemeentePage({
                               i === 0 && !isKindergraf ? 'bg-accent/5' : ''
                             }`}
                           >
-                            <td className="px-6 py-3 font-medium text-text-main">
+                            <td className="px-4 sm:px-6 py-3 font-medium text-text-main">
                               {looptijdLabel}
                               {i === 0 && !isKindergraf && (
                                 <span className="ml-2 text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full font-medium">
@@ -251,11 +274,16 @@ export default async function GemeentePage({
                                 </span>
                               )}
                             </td>
-                            <td className="px-6 py-3 text-right font-semibold text-text-main">
+                            <td className={`px-4 sm:px-6 py-3 text-right ${heeftOnderhoud ? 'text-text-muted' : 'font-semibold text-text-main'}`}>
                               {formatCurrency(t.tarief)}
                             </td>
-                            <td className="px-6 py-3 text-right text-text-muted">
-                              {isKindergraf ? '—' : `${formatCurrency(Math.round(t.tarief / t.looptijd))}/jaar`}
+                            {heeftOnderhoud && (
+                              <td className="px-4 sm:px-6 py-3 text-right font-semibold text-primary">
+                                {formatCurrency(inclOnderhoud)}
+                              </td>
+                            )}
+                            <td className="px-4 sm:px-6 py-3 text-right text-text-muted">
+                              {isKindergraf ? '—' : `${formatCurrency(Math.round(inclOnderhoud / t.looptijd))}/jaar`}
                             </td>
                           </tr>
                         );
@@ -268,29 +296,6 @@ export default async function GemeentePage({
           })}
         </div>
 
-        {/* Onderhoudscontract */}
-        {bp.onderhoud.type !== 'niet_beschikbaar' && (
-          <div className="mt-10 bg-stone-50 rounded-2xl p-6 border border-border">
-            <h3 className="text-lg font-semibold text-text-main mb-2 flex items-center gap-2">
-              <Info size={20} className="text-primary" />
-              Onderhoudscontract
-            </h3>
-            <p className={`inline-block text-sm font-medium px-3 py-1 rounded-full mb-3 ${
-              bp.onderhoud.type === 'verplicht'
-                ? 'bg-rose-100 text-rose-700'
-                : 'bg-emerald-100 text-emerald-700'
-            }`}>
-              {bp.onderhoud.type === 'verplicht' ? 'Verplicht' : 'Niet verplicht'}
-            </p>
-            {bp.onderhoud.perJaar && (
-              <p className="text-text-muted">
-                De kosten voor het onderhoudscontract bedragen{' '}
-                <span className="font-medium text-text-main">{formatCurrency(bp.onderhoud.perJaar)} per jaar</span>.
-              </p>
-            )}
-          </div>
-        )}
-
         {/* Bron */}
         <div className="mt-8 flex items-start gap-3 text-sm text-text-muted">
           <FileText size={16} className="mt-0.5 shrink-0" />
@@ -300,6 +305,42 @@ export default async function GemeentePage({
           </p>
         </div>
       </section>
+
+      {/* Begraafplaatsen in deze gemeente (RCE data) */}
+      {begraafplaatsLocaties[info.naam] && begraafplaatsLocaties[info.naam].length > 0 && (
+        <section className="bg-earth-light py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-3 mb-2">
+              <Landmark size={28} className="text-primary" />
+              <h2 className="text-3xl font-bold text-text-main">
+                Begraafplaatsen in {info.naam}
+              </h2>
+            </div>
+            <p className="text-text-muted mb-8 max-w-3xl">
+              De gemeente {info.naam} heeft {begraafplaatsLocaties[info.naam].length} gemeentelijke{' '}
+              {begraafplaatsLocaties[info.naam].length === 1 ? 'begraafplaats' : 'begraafplaatsen'}.
+              De tarieven op deze pagina gelden voor al deze locaties.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {begraafplaatsLocaties[info.naam].map((loc, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-xl border border-border p-5 hover:shadow-md transition-shadow"
+                >
+                  <h3 className="font-semibold text-text-main mb-1">{loc.naam}</h3>
+                  <div className="flex items-center gap-1.5 text-sm text-text-muted">
+                    <MapPin size={14} className="text-primary shrink-0" />
+                    <span>{loc.plaats}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-text-muted mt-6">
+              Bron: Rijksdienst voor het Cultureel Erfgoed (RCE) — Landschapsatlas
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Toelichting */}
       <section className="bg-stone-50 py-16 md:py-24">

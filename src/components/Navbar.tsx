@@ -49,9 +49,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo — no icon */}
-          <Link href="/" className="flex items-center shrink-0">
-            <span className={`text-[22px] font-extrabold tracking-tight ${isScrolled ? 'text-earth-dark' : 'text-white'}`}>
+          <Link href="/" className="flex flex-col shrink-0">
+            <span className={`text-[22px] font-extrabold tracking-tight leading-tight ${isScrolled ? 'text-earth-dark' : 'text-white'}`}>
               begraafplaats<span className={isScrolled ? 'text-primary' : 'text-green-300'}>kosten</span><span className={isScrolled ? 'text-text-muted' : 'text-stone-400'}>.nl</span>
+            </span>
+            <span className={`text-[11px] tracking-[0.2em] uppercase font-medium ${isScrolled ? 'text-text-muted' : 'text-stone-400'}`}>
+              geeft rust
             </span>
           </Link>
 
