@@ -11,7 +11,7 @@ import {
   Begraafplaats,
 } from '@/lib/fallback-data';
 import { begraafplaatsLocaties } from '@/lib/begraafplaats-locaties';
-import { MapPin, TrendingDown, Clock, Shield, ArrowRight, FileText, Info, Landmark } from 'lucide-react';
+import { MapPin, TrendingDown, Clock, Shield, ArrowRight, FileText, Info, Landmark, ExternalLink } from 'lucide-react';
 
 // Statically generate all 153 gemeente pages
 export function generateStaticParams() {
@@ -322,18 +322,31 @@ export default async function GemeentePage({
               De tarieven op deze pagina gelden voor al deze locaties.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {begraafplaatsLocaties[info.naam].map((loc, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-xl border border-border p-5 hover:shadow-md transition-shadow"
-                >
-                  <h3 className="font-semibold text-text-main mb-1">{loc.naam}</h3>
-                  <div className="flex items-center gap-1.5 text-sm text-text-muted">
-                    <MapPin size={14} className="text-primary shrink-0" />
-                    <span>{loc.plaats}</span>
+              {begraafplaatsLocaties[info.naam].map((loc, i) => {
+                const mapsQuery = encodeURIComponent(`${loc.naam} ${loc.plaats}`);
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+                return (
+                  <div
+                    key={i}
+                    className="bg-white rounded-xl border border-border p-5 hover:shadow-md transition-shadow"
+                  >
+                    <h3 className="font-semibold text-text-main mb-1">{loc.naam}</h3>
+                    <div className="flex items-center gap-1.5 text-sm text-text-muted mb-3">
+                      <MapPin size={14} className="text-primary shrink-0" />
+                      <span>{loc.plaats}</span>
+                    </div>
+                    <a
+                      href={mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                      Bekijk op Google Maps
+                    </a>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <p className="text-xs text-text-muted mt-6">
               Bron: Rijksdienst voor het Cultureel Erfgoed (RCE) — Landschapsatlas
