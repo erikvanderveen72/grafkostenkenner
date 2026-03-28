@@ -159,7 +159,7 @@ export default function HomePage() {
                 className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold hover:shadow-2xl transition-all shadow-xl text-sm sm:text-base"
               >
                 <Search size={18} />
-                Vergelijk grafkosten
+                Vergelijk grafrechtkosten
               </Link>
               <Link
                 href="#provincies"

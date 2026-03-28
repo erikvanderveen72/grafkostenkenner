@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import FAQSchema from '@/components/FAQSchema';
-import { BookOpen, Clock, Euro, FileText, RefreshCw, Shield, AlertTriangle, ArrowRight } from 'lucide-react';
+import { BookOpen, Clock, Euro, FileText, RefreshCw, Shield, AlertTriangle, ArrowRight, Landmark, Building2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Grafrechten Uitleg 2026 - Wat Zijn Grafrechten en Wat Kosten Ze?',
@@ -16,17 +16,17 @@ const faqItems = [
   {
     question: 'Wat zijn grafrechten?',
     answer:
-      'Grafrechten zijn het exclusieve recht om een overledene te laten begraven in een bepaald graf op een begraafplaats. Dit recht wordt verleend voor een bepaalde periode en kan daarna verlengd worden.',
+      'Grafrechten zijn het exclusieve recht om een overledene te laten begraven in een bepaald graf op een begraafplaats. De grond blijft eigendom van de gemeente of beheerder — u krijgt een gebruiksrecht voor een bepaalde periode.',
   },
   {
     question: 'Hoe lang duren grafrechten?',
     answer:
-      'Op gemeentelijke begraafplaatsen worden grafrechten meestal verleend voor 10 tot 30 jaar. Bij particuliere begraafplaatsen zijn langere periodes mogelijk, tot 80 jaar. Op natuurbegraafplaatsen geldt vaak eeuwig grafrecht.',
+      'Op gemeentelijke begraafplaatsen worden grafrechten meestal verleend voor 10 tot 30 jaar. Na afloop kunt u de grafrechten verlengen. Eeuwigdurende grafrechten worden vrijwel niet meer uitgegeven.',
   },
   {
-    question: 'Wat is het verschil tussen een particulier graf en een algemeen graf?',
+    question: 'Wat is het verschil tussen een algemene en een bijzondere begraafplaats?',
     answer:
-      'Bij een particulier graf heeft u exclusief recht op het graf en bepaalt u wie er begraven wordt. Bij een algemeen graf bepaalt de begraafplaats de locatie en kunnen er na verloop van tijd ook anderen begraven worden.',
+      'Een algemene (openbare) begraafplaats wordt beheerd door de gemeente en is toegankelijk voor iedereen. Een bijzondere (particuliere) begraafplaats wordt beheerd door bijvoorbeeld een kerk of stichting en kan specifieke voorwaarden hanteren.',
   },
   {
     question: 'Wat kost het om grafrechten te verlengen?',
@@ -39,9 +39,9 @@ const faqItems = [
       'Als de grafrechten verlopen en niet worden verlengd, kan de begraafplaats het graf na een wachttijd (meestal 10 jaar na laatste bijzetting) ruimen. De stoffelijke resten worden dan herbegraven in een verzamelgraf.',
   },
   {
-    question: 'Zijn grafrechten overdraagbaar?',
+    question: 'Bestaan eeuwigdurende grafrechten nog?',
     answer:
-      'Ja, grafrechten kunnen worden overgedragen aan een nabestaande. Dit moet schriftelijk worden vastgelegd bij de begraafplaats. Er kunnen administratiekosten aan verbonden zijn.',
+      'Bijna alle gemeenten geven geen eeuwigdurende grafrechten meer uit. U kunt het nog tegenkomen bij oude graven (vaak van vóór ±1970–1990), historische of kerkelijke begraafplaatsen, en soms bij particuliere of bijzondere begraafplaatsen.',
   },
 ];
 
@@ -58,13 +58,14 @@ export default function GrafrechtenUitlegPage() {
       />
 
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        {/* Introductie */}
-        <div className="prose prose-stone max-w-none mb-12">
-          <h2 className="text-2xl font-bold text-text-main mb-4">Wat zijn grafrechten?</h2>
-          <p className="text-text-muted leading-relaxed mb-6">
-            Grafrechten geven u het exclusieve recht om een overledene te laten begraven in een specifiek graf op een begraafplaats.
-            U koopt hiermee niet het stukje grond, maar het recht om het graf voor een bepaalde periode te gebruiken.
-            Na afloop van die periode kunt u de grafrechten verlengen.
+        {/* Wat is een grafrecht? */}
+        <div className="prose prose-stone max-w-none mb-16">
+          <h2 className="text-2xl font-bold text-text-main mb-4">Wat is een grafrecht?</h2>
+          <p className="text-text-muted leading-relaxed mb-4">
+            De grond van een begraafplaats blijft altijd eigendom van de gemeente of beheerder. U krijgt als nabestaande alleen een <strong>gebruiksrecht</strong> — het grafrecht. Daarom spreekt men officieel van grafrecht, niet van eigendom.
+          </p>
+          <p className="text-text-muted leading-relaxed mb-4">
+            In de praktijk lijkt grafrecht sterk op huren: u krijgt het recht om een graf te gebruiken voor een bepaalde periode (vaak 10 tot 30 jaar) en betaalt daarvoor een eenmalig bedrag. Na afloop kunt u het grafrecht verlengen of het graf laten vervallen.
           </p>
         </div>
 
@@ -79,7 +80,7 @@ export default function GrafrechtenUitlegPage() {
             {
               icon: Clock,
               title: 'Looptijd',
-              text: 'Gemeentelijke begraafplaatsen verlenen grafrechten voor 10-30 jaar. Particuliere begraafplaatsen bieden vaak langere termijnen (40-80 jaar). Natuurbegraafplaatsen geven eeuwig grafrecht.',
+              text: 'U krijgt het grafrecht voor een vaste termijn, meestal 10, 20 of 30 jaar. Na afloop kunt u verlengen. Vrijwel alle gemeenten geven tegenwoordig alleen grafrechten voor een vaste termijn uit.',
             },
             {
               icon: RefreshCw,
@@ -102,6 +103,17 @@ export default function GrafrechtenUitlegPage() {
           ))}
         </div>
 
+        {/* Eeuwigdurende grafrechten */}
+        <div className="bg-white border border-border rounded-2xl p-6 mb-16">
+          <h3 className="font-semibold text-text-main mb-3">Eeuwigdurende grafrechten</h3>
+          <p className="text-text-muted text-sm leading-relaxed mb-3">
+            Bijna alle gemeenten geven tegenwoordig geen eeuwigdurende grafrechten meer uit. Nieuwe graven worden vrijwel altijd uitgegeven voor een vaste termijn die u steeds kunt verlengen.
+          </p>
+          <p className="text-text-muted text-sm leading-relaxed">
+            Eeuwigdurende grafrechten komt u nog wel tegen bij oude graven (vaak van vóór ±1970–1990), historische of kerkelijke begraafplaatsen, en soms bij particuliere of bijzondere begraafplaatsen.
+          </p>
+        </div>
+
         {/* Waarschuwing */}
         <div className="bg-warning-light border border-warning rounded-2xl p-6 mb-16">
           <div className="flex items-start gap-3">
@@ -115,33 +127,135 @@ export default function GrafrechtenUitlegPage() {
           </div>
         </div>
 
-        {/* Vergelijking soorten */}
+        {/* Soorten begraafplaatsen */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-text-main mb-4">Soorten begraafplaatsen in Nederland</h2>
+          <p className="text-text-muted leading-relaxed mb-8">
+            In hoofdlijnen zijn er in Nederland twee soorten begraafplaatsen: algemene (openbare) begraafplaatsen en bijzondere (particuliere) begraafplaatsen. Op deze website vergelijken we enkel de grafrechtkosten voor algemene (openbare) begraafplaatsen. Voor actuele tarieven van bijzondere begraafplaatsen dient u contact op te nemen met de beheerder van de betreffende begraafplaats.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Algemene begraafplaatsen */}
+            <div className="bg-white border border-border rounded-2xl overflow-hidden">
+              <div className="bg-primary p-5 flex items-center gap-3">
+                <Landmark size={24} className="text-white" />
+                <h3 className="text-lg font-semibold text-white">Algemene (openbare) begraafplaatsen</h3>
+              </div>
+              <div className="p-6">
+                <p className="text-text-muted text-sm leading-relaxed mb-4">
+                  Een gemeentelijke begraafplaats wordt beheerd door de gemeente en is voor iedereen toegankelijk.
+                </p>
+                <ul className="space-y-2 text-sm text-text-muted mb-5">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Beheer:</strong> door de gemeente</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Toegankelijkheid:</strong> openbaar voor iedereen, ongeacht geloof</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Kosten:</strong> meestal lager dan particulier</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Grafrechten:</strong> u &quot;huurt&quot; het graf voor een bepaalde periode (bijv. 10, 20 of 30 jaar)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Regels:</strong> vastgesteld door de gemeente</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Onderhoud:</strong> vaak (gedeeltelijk) door de gemeente geregeld</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>Neutraal karakter, vaak verschillende delen (algemeen, kindergraven, urnenvelden)</span>
+                  </li>
+                </ul>
+                <p className="text-xs text-text-muted italic">
+                  Voorbeelden: algemene begraafplaatsen in dorpen en steden
+                </p>
+              </div>
+            </div>
+
+            {/* Bijzondere begraafplaatsen */}
+            <div className="bg-white border border-border rounded-2xl overflow-hidden">
+              <div className="bg-earth-mid p-5 flex items-center gap-3">
+                <Building2 size={24} className="text-white" />
+                <h3 className="text-lg font-semibold text-white">Bijzondere (particuliere) begraafplaatsen</h3>
+              </div>
+              <div className="p-6">
+                <p className="text-text-muted text-sm leading-relaxed mb-4">
+                  Een particuliere begraafplaats is in handen van een private organisatie, stichting of bijvoorbeeld een kerk.
+                </p>
+                <ul className="space-y-2 text-sm text-text-muted mb-5">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Beheer:</strong> door een stichting, kerk of particulier</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Toegankelijkheid:</strong> soms beperkter of met specifieke voorwaarden</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Kosten:</strong> vaak hoger, afhankelijk van locatie en exclusiviteit</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Grafrechten:</strong> vaak flexibeler, soms zelfs eeuwigdurend</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Regels:</strong> bepaald door de eigenaar (bijv. religieuze voorschriften)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Sfeer:</strong> kan persoonlijker of thematisch zijn (bijv. natuur, religie)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>Niet altijd volledig openbaar voor iedereen</span>
+                  </li>
+                </ul>
+                <p className="text-xs text-text-muted italic">
+                  Voorbeelden: kerkelijke begraafplaatsen, natuurbegraafplaatsen
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Vergelijkingstabel */}
         <div className="bg-white border border-border rounded-2xl overflow-hidden mb-16">
           <div className="bg-primary text-white p-6">
-            <h3 className="text-lg font-semibold">Vergelijking: soorten graven</h3>
+            <h3 className="text-lg font-semibold">Belangrijkste verschillen in één oogopslag</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
                   <th className="px-6 py-3 text-left font-semibold text-text-main">Kenmerk</th>
-                  <th className="px-6 py-3 text-left font-semibold text-text-main">Particulier graf</th>
-                  <th className="px-6 py-3 text-left font-semibold text-text-main">Algemeen graf</th>
+                  <th className="px-6 py-3 text-left font-semibold text-text-main">Gemeentelijk (algemeen)</th>
+                  <th className="px-6 py-3 text-left font-semibold text-text-main">Particulier (bijzonder)</th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  ['Keuze locatie', 'Ja, u kiest zelf', 'Nee, wordt toegewezen'],
-                  ['Bijzettingen', 'Meerdere mogelijk', 'Meestal 1 persoon'],
-                  ['Verlenging', 'Ja, na afloop', 'Meestal niet'],
-                  ['Grafbedekking', 'Eigen keuze', 'Beperkte opties'],
-                  ['Kosten', 'Hoger', 'Lager'],
-                  ['Overdraagbaar', 'Ja', 'Nee'],
-                ].map(([kenmerk, particulier, algemeen]) => (
+                  ['Beheer', 'Gemeente', 'Privé / stichting / kerk'],
+                  ['Kosten', 'Lager', 'Vaak hoger'],
+                  ['Regels', 'Vast (gemeente)', 'Flexibeler / eigen regels'],
+                  ['Grafduur', 'Tijdelijk (verlengbaar)', 'Soms langdurig / onbeperkt'],
+                  ['Onderhoud', 'Vaak optioneel', 'Vaak verplicht'],
+                  ['Toegankelijkheid', 'Voor iedereen', 'Soms beperkter'],
+                ].map(([kenmerk, gemeentelijk, particulier]) => (
                   <tr key={kenmerk} className="border-b border-border hover:bg-surface transition">
                     <td className="px-6 py-3 font-medium text-text-main">{kenmerk}</td>
+                    <td className="px-6 py-3 text-text-muted">{gemeentelijk}</td>
                     <td className="px-6 py-3 text-text-muted">{particulier}</td>
-                    <td className="px-6 py-3 text-text-muted">{algemeen}</td>
                   </tr>
                 ))}
               </tbody>
@@ -152,10 +266,10 @@ export default function GrafrechtenUitlegPage() {
         {/* CTA */}
         <div className="text-center">
           <Link
-            href="/provincie/groningen"
+            href="/"
             className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-2xl font-semibold hover:bg-primary-dark hover:shadow-xl transition-all"
           >
-            Vergelijk grafkosten in Groningen
+            Vergelijk grafrechtkosten
             <ArrowRight size={20} />
           </Link>
         </div>
